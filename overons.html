@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MNNO.be - Home</title>
+    <title>MNNO.be - Over Ons</title>
     <!-- Tailwind CSS laden voor snelle en responsieve styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -29,57 +29,15 @@
             animation: spin 3s linear infinite;
         }
 
-        /* Manifesto Container - Vult het scherm voor de initiële manifesto-weergave */
-        .manifesto-container {
-            min-height: calc(100vh - 80px); /* Volledige hoogte min de header */
-            display: flex;
-            align-items: center;
-            justify-content: flex-start; /* Links uitgelijnd, met padding */
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-
-        }
-
-        /* Collage Item Styling */
-        .collage-item {
-            /* Zorgt voor een lichte rand op donkere achtergrond */
-            border: 1px solid #333;
-            overflow: hidden; /* Houdt de afbeelding binnen de grenzen */
-            position: relative;
-            cursor: pointer;
-        }
-        .collage-item img {
-            transition: transform 0.4s ease-out;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .collage-item:hover img {
-            transform: scale(1.05);
-        }
-        /* Definieer specifieke aspect ratio's of grid spans voor de collage */
-        .item-tall {
-            aspect-ratio: 4 / 5; /* Verticaal (klein) */
-        }
-        .item-wide {
-            aspect-ratio: 3 / 2; /* Horizontaal (groot) */
-            grid-column: span 2; /* Strekt over 2 kolommen op mobiel/tablet */
-        }
-
         /* Fixed Footer Styling */
         footer {
-            border-top: 1px solid #333; /* Lichte scheidingslijn op donkere achtergrond */
+            border-top: 1px solid #333;
         }
 
         /* Mobile Menu Transitions */
         .mobile-menu-container {
             transition: transform 0.3s ease-out;
             z-index: 40;
-        }
-
-        /* Overrides voor Tailwind in Dark Mode */
-        .bg-black-900 {
-            background-color: #1a1a1a;
         }
 
         /* NIEUW: CSS voor een vloeiende overgang bij taalwissel */
@@ -95,68 +53,20 @@
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
 
-        /* NIEUW: Scrolling strip animation */
-        @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Schuift de kloon over de breedte */
-        }
-        .scrolling-strip {
-            overflow: hidden;
-            white-space: nowrap;
-            width: 100%;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-            padding: 1.5rem 0; /* Verhoogde padding voor meer dikte */
-        }
-        .scrolling-text {
-            display: inline-block;
-            animation: scroll-left 15s linear infinite;
-            font-size: 1.8rem; /* Standaard font size voor mobiel */
-            font-weight: 900; /* Extra bold/Black */
-            letter-spacing: 0.2em; /* Spatie tussen letters */
-            text-transform: uppercase;
-            color: #fff; /* Puur wit */
-        }
-        @media (min-width: 640px) { /* sm breakpoint */
-            .scrolling-text {
-                font-size: 2.5rem; /* Groter op tablet */
-            }
-        }
-        @media (min-width: 1024px) { /* lg breakpoint */
-            .scrolling-text {
-                font-size: 3rem; /* Grootst op desktop */
-            }
-        }
-        /* Hover Info Block Styling */
-        .hover-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-out;
-        }
-        .collage-item:hover .hover-info {
-            transform: translateY(0);
-        }
-
-        /* HEADER STYLES: SMART SCROLL */
-        header {
-            transition: transform 0.3s ease-in-out; /* Maak de slide animatie vloeiend */
-        }
-
         /* Highlight Class for search results */
         .search-highlight {
-            background-color: #fff; /* Witte achtergrond */
-            color: #000; /* Zwarte tekst */
+            background-color: #fff;
+            color: #000;
             border-radius: 4px;
             padding: 0 4px;
         }
 
-        /* NIEUW: Custom scroll-reveal effect for collection cards */
+        /* HEADER STYLES: SMART SCROLL */
+        header {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Custom scroll-reveal effect for main content blocks */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -166,6 +76,30 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Unique Style for the About Section Image */
+        .about-image {
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            object-position: center;
+            filter: grayscale(100%); /* Zwart-wit effect voor minimalistische look */
+            transition: filter 0.5s ease-in-out;
+        }
+        .about-image:hover {
+            filter: grayscale(0%); /* Kleur bij hover */
+        }
+
+        /* Animated Title Effect */
+        .animated-char {
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInScale 0.8s forwards;
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(10px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
     </style>
 </head>
 <body class="bg-black text-white">
@@ -174,21 +108,22 @@
 <header id="main-header" class="sticky top-0 bg-black z-50 border-b border-gray-800">
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center relative">
 
-        <!-- Links (Links uitgelijnd) - Aangepaste kleuren voor actieve/inactieve links EN DIKKER LETTERTYPE -->
+        <!-- Links (Links uitgelijnd) -->
         <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wider uppercase">
-            <!-- HOME (ACTIEF) -->
-            <a href="index.html" class="text-gray-200 transition duration-150 language-transition" data-translate-key="nav_home">HOME</a>
-            <!-- COLLECTIE (NAAR NIEUWE PAGINA) -->
+            <!-- HOME (INACTIEF) -->
+            <a href="index.html" class="text-gray-500 hover:text-gray-200 transition duration-150 language-transition" data-translate-key="nav_home">HOME</a>
+            <!-- COLLECTIE (INACTIEF) -->
             <a href="collectie.html" class="text-gray-500 hover:text-gray-200 transition duration-150 language-transition" data-translate-key="nav_collectie">COLLECTIE</a>
-            <a href="overons.html" class="text-gray-500 hover:text-gray-200 transition duration-150 language-transition" data-translate-key="nav_over_ons">OVER ONS</a>
+            <!-- OVER ONS (ACTIEF) -->
+            <a href="overons.html" class="text-gray-200 transition duration-150 language-transition" data-translate-key="nav_over_ons">OVER ONS</a>
         </div>
 
-        <!-- Logo (Centraal gepositioneerd, nu een draaiende afbeelding) -->
+        <!-- Logo (Centraal gepositioneerd) -->
         <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <img src="logoMNNO.gif" alt="MNNO Logo (Draaiend)" class=" w- h-8"/>
         </div>
 
-        <!-- Iconen (Rechts uitgelijnd) -->
+        <!-- Iconen & Mobiel Menu (Rechts uitgelijnd) -->
         <div class="flex items-center space-x-6 text-sm">
             <!-- Taalwisselaar -->
             <button id="language-toggle" aria-label="Toggle language" class="hidden sm:block text-gray-500 font-semibold hover:text-gray-200 transition duration-150 language-transition">
@@ -200,7 +135,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
 
-            <!-- Mobiel Menu Knop (Alleen zichtbaar op Mobiel) -->
+            <!-- Mobiel Menu Knop (Alleen zichtbaar op Mobiel/Tablet) -->
             <button id="menu-toggle" aria-label="Menu" class="md:hidden p-2 text-gray-500 hover:text-gray-200 transition duration-150">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path><path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -212,119 +147,81 @@
 <div id="mobile-menu" class="mobile-menu-container fixed inset-0 bg-black transform translate-x-full md:hidden z-40">
     <div class="pt-24 px-8 flex flex-col space-y-4 text-lg font-semibold uppercase">
         <!-- Mobile Links -->
-        <a href="index.html" class="text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_home">HOME</a>
+        <a href="index.html" class="text-gray-500 hover:text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_home">HOME</a>
         <a href="collectie.html" class="text-gray-500 hover:text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_collectie">COLLECTIE</a>
-        <a href="overons.html" class="text-gray-500 hover:text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_over_ons">OVER ONS</a>
+        <a href="overons.html" class="text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_over_ons">OVER ONS</a>
     </div>
 </div>
 
 <main>
-    <!-- Manifesto Sectie (Vervangt de Hero Sectie) -->
-    <section class="manifesto-container w-full overflow-hidden">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-left">
-
-            <p class="text-base sm:text-lg mb-8 leading-relaxed language-transition scroll-reveal" data-translate-key="manifesto_p1" style="transition-delay: 0.1s;">
-                Fashion isn't about decoration — it's about declaration. Each piece you wear is a fragment of who you are becoming. We build our own silhouettes, we sculpt our fears into strength, and we wear them proudly. In the words of Rick Owens: Fashion is about dressing according to what's fashionable. Style is more about being yourself!
+    <!-- Hero/Intro Sectie -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        <header class="text-center max-w-4xl mx-auto">
+            <p class="text-sm font-light uppercase tracking-widest text-gray-500 mb-2 language-transition" data-translate-key="about_subtitle"></p>
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tighter mb-8 text-white" id="animated-title">
+                <!-- Title animated in JS -->
+            </h1>
+            <p class="text-lg text-gray-400 leading-relaxed scroll-reveal language-transition" data-translate-key="about_intro" style="transition-delay: 0.2s;">
+                Ik ben Menno Heussen, de ontwerper, maker en kracht achter MNNO. Dit merk is mijn uiting van non-conformiteit en tijdloos design, geboren uit een passie voor deconstructie en de schoonheid van natuurlijke materialen.
             </p>
+        </header>
+    </section>
 
-            <p class="text-base sm:text-lg mb-8 leading-relaxed language-transition scroll-reveal" data-translate-key="manifesto_p2" style="transition-delay: 0.3s;">
-                This is not just clothing — it's a conversation with the world. Build your uniform of freedom, your quiet rebellion, your art in motion.
-            </p>
+    <!-- Visual en Missie Sectie -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Afbeelding (Links op Desktop) -->
+            <div class="scroll-reveal" style="transition-delay: 0.4s;">
+                <img src="Menno.jpeg" alt="Foto van Menno Heussen of de werkplek" class="about-image w-full rounded-lg shadow-xl border border-gray-800"/>
+            </div>
 
-            <p class="text-base sm:text-lg mb-2 leading-relaxed font-bold language-transition scroll-reveal" data-translate-key="manifesto_unique" style="transition-delay: 0.5s;">
-                -Every item is unique, 1 of 1-
-            </p>
+            <!-- Tekstblok (Rechts op Desktop) -->
+            <div class="space-y-8 lg:pl-12">
+                <div class="scroll-reveal" style="transition-delay: 0.6s;">
+                    <h2 class="text-3xl font-bold uppercase mb-4 language-transition" data-translate-key="about_section1_title">De Filosofie: Deconstructie & Detail</h2>
+                    <p class="text-gray-400 leading-relaxed mb-4 language-transition" data-translate-key="about_section1_p1">
+                        MNNO is geworteld in de overtuiging dat ware stijl ligt in de details en het verhaal achter het materiaal. Ik vind inspiratie in het proces van het deconstrueren van bestaande kledingstukken en materialen om ze een nieuwe, onverwachte structuur te geven. Elke naad, elke snede, is intentioneel. Ik zie imperfecties niet als fouten, maar als karakter.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed language-transition" data-translate-key="about_section1_p2">
+                        Mijn toewijding aan het creëren van "1 of 1" stuks betekent dat je iets werkelijk unieks bezit—een draagbaar sculptuur dat individualiteit weerspiegelt.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <!-- Knop om de contact modal te openen -->
-            <button id="open-contact-modal" class="text-base sm:text-lg text-gray-500 hover:text-gray-200 transition duration-150 underline language-transition scroll-reveal" data-translate-key="manifesto_send_msg" onclick="openModal()" style="transition-delay: 0.7s;">
+    <!-- Ondernemerschap Sectie: VERNIEUWD -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-800">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Tekstblok (Links op Desktop) -->
+            <div class="space-y-8 lg:pr-12 order-2 lg:order-1">
+                <div class="scroll-reveal" style="transition-delay: 0.8s;">
+                    <!-- VERNIEUWDE TITEL -->
+                    <h2 class="text-3xl font-bold uppercase mb-4 language-transition" data-translate-key="about_section2_title">Van Ambacht tot Business</h2>
+                    <!-- VERNIEUWDE PARAGRAFEN -->
+                    <p class="text-gray-400 leading-relaxed mb-4 language-transition" data-translate-key="about_section2_p1">
+                        Wat begon als een pure passie voor het creëren van unieke stukken, groeit nu uit tot een ambitieuze onderneming. Elk handgemaakt item is een stap op weg naar een volwaardige, gespecialiseerde business. De focus blijft op de onberispelijke kwaliteit en het persoonlijke contact, maar de schaal van mijn creatieve impact groeit.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed language-transition" data-translate-key="about_section2_p2">
+                        De toekomst van MNNO ligt in het verbreden van dit ambacht, het integreren van op maat gemaakte collecties, en het vestigen van een merk dat synoniem is met authentieke, gedragen kunst. Dit is de reis naar een succesvolle, ethische fashion business.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Afbeelding (Rechts op Desktop) -->
+            <div class="scroll-reveal order-1 lg:order-2" style="transition-delay: 1s;">
+                <img src="zakelij.jpg" alt="Afbeelding van een zakelijke visie of handgemaakt product in de studio" class="about-image w-full rounded-lg shadow-xl border border-gray-800"/>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Sectie -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 text-center">
+        <div class="scroll-reveal" style="transition-delay: 1.2s;">
+            <h3 class="text-4xl font-bold uppercase mb-6 language-transition" data-translate-key="about_cta_request">Start Je Maatwerk Project</h3>
+            <button onclick="openModal()" class="inline-block px-12 py-4 border-2 border-white text-white text-md font-semibold uppercase tracking-wider rounded-full hover:bg-white hover:text-black transition duration-300 language-transition" data-translate-key="manifesto_send_msg">
                 Send message for request!
             </button>
-        </div>
-    </section>
-
-    <!-- Schuivende strip sectie met herhalende tekst (Groter, Witter, Duidelijker) -->
-    <section class="scrolling-strip bg-black">
-        <div class="scrolling-text" id="scrolling-text-content">
-            <!-- De tekst wordt door JavaScript ingesteld en herhaald -->
-        </div>
-    </section>
-
-    <!-- Fotocollage Sectie (Highlights) -->
-    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-800">
-
-        <div class="scroll-reveal" style="transition-delay: 0s;">
-            <h2 class="text-3xl font-bold text-center mb-16 uppercase tracking-wider language-transition" data-translate-key="section_highlights">Onze Hoogtepunten</h2>
-        </div>
-
-        <!-- Responsieve Collage Grid (2 kolommen op mobiel, 3 kolommen op desktop) -->
-        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
-
-            <!-- Item 1 (Verticaal) -->
-            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.1s;">
-                <img src="JacketJeans.jpg"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Eerste jeans jas" data-image-info-en="First jeans jacket">
-                <!-- Hover Overlay -->
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
-                </div>
-            </div>
-
-            <!-- Item 2 (Verticaal) -->
-            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.2s;">
-                <img src="WaffleGreenSweat.JPG"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Trui met borduursel" data-image-info-en="Sweater with embroidery">
-                <!-- Hover Overlay -->
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
-                </div>
-            </div>
-
-            <!-- Item 3 (Horizontaal - strekt over 2 kolommen op mobiel/tablet) -->
-            <div class="collage-item item-wide col-span-2 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.3s;">
-                <img src="BroekOpening.JPG"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Handgemaakte jeans met split achteraan" data-image-info-en="Handmade jeans with split at the back">
-                <!-- Hover Overlay -->
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
-                </div>
-            </div>
-
-            <!-- Item 4 (Verticaal, op desktop vult deze de 3e kolom van de rij van Item 3) -->
-            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.4s;">
-                <img src="Cardholder.jpg"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Jeans kaarthouder" data-image-info-en="Jeans cardholder">
-                <!-- Hover Overlay -->
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
-                </div>
-            </div>
-
-            <!-- Item 5 (Horizontaal, strekt over 2 kolommen op mobiel/tablet)
-            <div class="collage-item item-wide col-span-2 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.5s;">
-                <img src="https://placehold.co/1200x800/555555/cccccc?text=Custom+Item+E+(Wide)"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Natuurlijke Materialen" data-image-info-en="Natural Materials">
-                /// Hover Overlay
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
-                </div>
-            </div>-->
-        </div>
-
-        <!-- Collectie Knop -->
-        <div class="text-center mt-16 scroll-reveal" style="transition-delay: 0.6s;">
-            <a href="collectie.html" class="inline-block px-10 py-3 border-2 border-white text-white text-sm font-semibold uppercase tracking-wider rounded-full hover:bg-white hover:text-black transition duration-300 language-transition" data-translate-key="collection_full_btn">
-                Bekijk de Volledige Collectie
-            </a>
         </div>
     </section>
 
@@ -355,8 +252,7 @@
                     <!-- Collection toegevoegd -->
                     <li><a href="collectie.html" class="text-gray-400 hover:text-white language-transition lowercase" data-translate-key="nav_collectie">Collectie</a></li>
                     <!-- About us (kleine letters) -->
-                    <li><a href="overons.html" class="text-gray-400 hover:text-white language-transition lowercase" data-translate-key="nav_over_ons_small">About us</a></li>
-
+                    <li><a href="overons.html" class="text-gray-200 hover:text-white language-transition lowercase" data-translate-key="nav_over_ons_small">About us</a></li>
                 </ul>
             </div>
 
@@ -388,7 +284,7 @@
         <br>
         <!-- Sub-Voettekst (Privacy/Terms met Popup) -->
         <div class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
-            <p class="language-transition">2025 MNNO. All rights reserved.</p>
+            <p class="language-transition" >2025 MNNO. All rights reserved.</p>
             <div class="mt-4 sm:mt-0 space-x-4">
                 <!-- Privacy Policy link opent modal -->
                 <button onclick="openInfoModal('privacy')" class="hover:text-white language-transition" data-translate-key="footer_privacy">Privacybeleid</button>
@@ -450,7 +346,7 @@
 
 <!-- NIEUW: Algemene Info Modal (voor Privacy & Terms) -->
 <div id="info-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[70] hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
-    <div class="bg-black border border-gray-700 p-6 sm:p-8 rounded-lg max-w-xl w-full transform transition-all duration-300 scale-95 opacity-0" id="info-modal-content">
+    <div class="bg-black border border-gray-700 p-6 sm:p-8 rounded-lg max-w-xl w-full transform transition-all duration-300 scale-95 opacity-0 overflow-y-auto max-h-[90vh]" id="info-modal-content">
         <div class="flex justify-between items-center pb-4 border-b border-gray-800">
             <h3 class="text-xl font-bold uppercase tracking-wider text-white" id="info-modal-title"></h3>
             <button id="close-info-modal" aria-label="Sluit" class="text-gray-500 hover:text-white transition duration-150">
@@ -475,10 +371,10 @@
 
         <form id="search-form" class="mt-6 flex flex-col gap-2" onsubmit="event.preventDefault(); handleSearchSubmission();">
             <input type="text" id="search-input" data-translate-placeholder-key="search_placeholder" placeholder="Voer uw zoekterm in" required
-                   class="flex-grow px-4 py-3 border border-gray-700 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-white">
+                   class="w-full px-4 py-3 border border-gray-700 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-white">
 
             <button type="submit"
-                    class="px-6 py-3 bg-white text-black text-sm font-semibold uppercase rounded-md hover:bg-gray-200 transition duration-300 language-transition" data-translate-key="search_btn">
+                    class="w-full py-3 bg-white text-black text-sm font-semibold uppercase rounded-md hover:bg-gray-200 transition duration-300 language-transition" data-translate-key="search_btn">
                 Zoeken
             </button>
             <p id="search-message" class="mt-4 text-sm text-center text-gray-400 hidden language-transition">
@@ -645,34 +541,64 @@
         }
     };
 
-    let currentLang = 'en'; // Starttaal is Engels, zoals gevraagd in het manifesto
+    let currentLang = 'en'; // Starttaal is Engels
     const FADE_DURATION = 200; // Milliseconden voor de fade-overgang
 
-    // Functie om de schuivende tekst in te stellen
-    function updateScrollingText(lang) {
-        const scrollingContent = translations[lang]['scrolling_text_content'];
-        const repeatedContent = scrollingContent.repeat(10); // Herhaal 10 keer om de strip te vullen
-        const element = document.getElementById('scrolling-text-content'); // Controleer of de strip bestaat
+    // Functie om de inhoud van de Over Ons pagina te updaten
+    function updateAboutContent(lang) {
+        const t = translations[lang];
 
-        if (element) {
-            element.textContent = repeatedContent;
+        // Animate title
+        const titleElement = document.getElementById('animated-title');
+        const titleKey = 'about_title';
+        if (titleElement && t[titleKey]) {
+            animateText(titleElement, t[titleKey]);
         }
-    }
 
-    // Functie om de hover info in de collage bij te werken
-    function updateCollageHoverInfo(lang) {
-        document.querySelectorAll('.collage-item').forEach(item => {
-            const img = item.querySelector('img');
-            const infoElement = item.querySelector('.image-title');
-            if (img && infoElement) {
-                const key = `data-image-info-${lang}`;
-                const info = img.getAttribute(key);
-                infoElement.textContent = info || (lang === 'nl' ? 'Info Niet Beschikbaar' : 'Info Not Available');
+        // Update body elements
+        // Deze functie is nodig omdat de nav en footer update functies hier niet de body content updaten
+        const bodyElements = document.querySelectorAll('[data-translate-key]');
+        bodyElements.forEach(el => {
+            const key = el.getAttribute('data-translate-key');
+            // Zorg ervoor dat we de titel overslaan, want die wordt geanimeerd
+            if (key !== titleKey && t[key]) {
+                el.textContent = t[key];
             }
         });
     }
 
+    // Functie voor de titelanimatie
+    function animateText(element, text) {
+        element.innerHTML = ''; // Maak de inhoud leeg
+        let delay = 0;
+        text.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char === ' ' ? '\u00A0' : char; // Vervang spatie door non-breaking space
+            span.classList.add('animated-char');
+            span.style.animationDelay = `${delay}s`;
+            element.appendChild(span);
+            // Korte delay tussen letters/woorden
+            if (char === ' ') {
+                delay += 0.0;
+            } else {
+                delay += 0.03;
+            }
+        });
+    }
 
+    // Functie om de scroll-reveal te controleren
+    function checkScrollReveal() {
+        const elements = document.querySelectorAll('.scroll-reveal');
+        elements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            // Trigger als het element 80% van de viewport van bovenaf bereikt
+            if (rect.top < window.innerHeight * 0.8) {
+                el.classList.add('visible');
+            }
+        });
+    }
+
+    // Functie om de taal in te stellen
     function setLanguage(lang) {
         currentLang = lang;
         const t = translations[lang];
@@ -706,9 +632,8 @@
                 toggleButton.textContent = `EUR / ${lang === 'en' ? 'NL' : 'EN'}`;
             }
 
-            // 5. Update de schuivende tekst en collage info
-            updateScrollingText(lang);
-            updateCollageHoverInfo(lang);
+            // 5. Update de Over Ons inhoud (inclusief titelanimatie)
+            updateAboutContent(lang);
 
             // 6. Update de HTML lang attribute
             document.documentElement.lang = lang;
@@ -742,11 +667,9 @@
             modal.classList.add('hidden');
             document.body.style.overflow = '';
         }, 300);
-        // Reset het formulier bij sluiten
         document.getElementById('mail-message').classList.add('hidden');
     }
 
-    // Mailto afhandeling (gebruikt in de modal submit)
     function handleMailtoSubmission(event) {
         event.preventDefault();
 
@@ -775,7 +698,6 @@ ${message}
         document.getElementById('mail-message').classList.remove('hidden');
         document.getElementById('contact-form').reset();
 
-        // Sluit de modal na een korte vertraging, zodat de gebruiker het succesbericht ziet
         setTimeout(() => {
             const modal = document.getElementById('contact-modal');
             const content = document.getElementById('modal-content');
@@ -786,33 +708,6 @@ ${message}
                 document.body.style.overflow = '';
             }, 300);
         }, 400);
-    }
-
-    // --- Image Zoom Modal Functies ---
-    function openImageModal(element) {
-        const modal = document.getElementById('image-zoom-modal');
-        const img = modal.querySelector('#modal-image');
-        const info = modal.querySelector('#modal-image-info');
-        // Let op: Hier gebruik je element.querySelector('img') in index.html, maar in de collage items is 'element' zelf de div. We moeten de img eruit halen.
-        const sourceImg = element.tagName === 'IMG' ? element : element.querySelector('img');
-
-        const infoText = sourceImg.getAttribute(`data-image-info-${currentLang}`);
-
-        img.src = sourceImg.src;
-        info.textContent = infoText;
-
-        modal.classList.remove('hidden');
-        modal.style.opacity = 1;
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeImageModal() {
-        const modal = document.getElementById('image-zoom-modal');
-        modal.style.opacity = 0;
-        setTimeout(() => {
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
-        }, 300);
     }
 
     // --- Info Modal (Privacy/Terms) Functies ---
@@ -856,14 +751,13 @@ ${message}
         content.classList.add('opacity-0', 'scale-95');
         document.body.style.overflow = 'hidden';
 
-        // Verberg eventuele vorige berichten
         document.getElementById('search-message').classList.add('hidden');
 
         setTimeout(() => {
             content.classList.remove('opacity-0', 'scale-95');
             content.classList.add('opacity-100', 'scale-100');
         }, 10);
-        document.getElementById('search-input').focus(); // Focus op het zoekveld
+        document.getElementById('search-input').focus();
     }
 
     function closeSearchModal() {
@@ -884,11 +778,9 @@ ${message}
         const highlights = container.querySelectorAll('.search-highlight');
         highlights.forEach(span => {
             const parent = span.parentNode;
-            // Verplaats alle kinderen van de span voor de span zelf
             while (span.firstChild) {
                 parent.insertBefore(span.firstChild, span);
             }
-            // Verwijder de span
             parent.removeChild(span);
         });
     }
@@ -914,44 +806,33 @@ ${message}
         let found = false;
         let firstFoundElement = null;
 
-        // Zoek alleen in elementen met zichtbare tekst in de main sectie
-        const searchableElements = Array.from(mainContent.querySelectorAll('p, h2, a, button, span'));
+        const searchableElements = Array.from(mainContent.querySelectorAll('p, h1, h3, h2, a, button, span'));
 
         for (const el of searchableElements) {
-            // Sla elementen over die de navigatie en functionaliteit breken
-            if (el.classList.contains('logo-spin') || el.classList.contains('scrolling-text')) {
+            if (el.classList.contains('logo-spin')) {
                 continue;
             }
 
             let originalHTML = el.innerHTML;
 
-            // Voer de vervanging uit en check of er iets is gevonden
             let highlightedHTML = originalHTML.replace(regex, (match, p1, offset, string) => {
                 found = true;
                 if (!firstFoundElement) {
-                    // Markeer het eerste gevonden element om naar te scrollen
                     firstFoundElement = el;
                 }
-                // Gebruik de match (p1) om de originele casing te behouden
                 return `<span class="bg-white text-black rounded px-1 search-highlight">${match}</span>`;
             });
 
-            // Alleen DOM wijzigen als de inhoud daadwerkelijk is veranderd
             if (highlightedHTML !== originalHTML) {
                 el.innerHTML = highlightedHTML;
             }
         }
 
-
         if (found && firstFoundElement) {
             closeSearchModal();
 
-            // Scroll naar het element
             requestAnimationFrame(() => {
-                // Gebruik scrollIntoView op het parent element voor betere centrering
                 firstFoundElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                // Toon melding in de console (voor dev feedback)
                 console.log(`[ZOEKRESULTAAT] Gevonden: ${query}. Scrolling naar element.`);
             });
         } else {
@@ -965,59 +846,39 @@ ${message}
     // --- SMART SCROLL FUNCTIE ---
     let lastScrollY = window.scrollY;
     const header = document.getElementById('main-header');
-    const headerHeight = 80; // Vaste hoogte van de header
+    const headerHeight = 80;
 
     function handleScroll() {
         const currentScrollY = window.scrollY;
 
-        // Roep de scroll reveal check aan bij elke scroll
-        checkScrollReveal();
+        checkScrollReveal(); // Controleer zichtbaarheid bij scrollen
 
-        // Zorg dat de header pas begint te verbergen nadat we 80px gescrolld zijn
         if (currentScrollY > headerHeight) {
             if (currentScrollY > lastScrollY) {
-                // Naar beneden scrollen: Verberg header
                 header.style.transform = `translateY(-${headerHeight}px)`;
             } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
-                // Naar boven scrollen met een drempel van 5px: Toon header
                 header.style.transform = 'translateY(0)';
             }
         } else {
-            // Zorg ervoor dat de header zichtbaar is bovenaan de pagina
             header.style.transform = 'translateY(0)';
         }
         lastScrollY = currentScrollY;
     }
-
-    // --- NIEUWE SCROLL REVEAL FUNCTIES VOOR INDEX.HTML ---
-    function checkScrollReveal() {
-        const elements = document.querySelectorAll('.scroll-reveal');
-        elements.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            // Trigger als het element 90% van de viewport van bovenaf bereikt
-            if (rect.top < window.innerHeight * 0.9) {
-                el.classList.add('visible');
-            }
-        });
-    }
-
 
     // Initialisatie
     document.addEventListener('DOMContentLoaded', () => {
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const languageToggle = document.getElementById('language-toggle');
-        const openModalButton = document.getElementById('open-contact-modal');
         const closeModalButton = document.getElementById('close-modal');
         const contactForm = document.getElementById('contact-form');
-        const closeImageModalButton = document.getElementById('close-image-modal');
         const closeInfoModalButton = document.getElementById('close-info-modal');
         const closeSearchModalButton = document.getElementById('close-search-modal');
 
 
-        // Smart Scroll Event Listener is nu actief
+        // Smart Scroll Event Listener
         window.addEventListener('scroll', handleScroll);
-        // Eerste check bij het laden
+        // Initial check for elements already in view
         checkScrollReveal();
 
 
@@ -1033,7 +894,6 @@ ${message}
         }
 
         // Contact Modal functionaliteit
-        if (openModalButton) openModalButton.addEventListener('click', openModal);
         if (closeModalButton) closeModalButton.addEventListener('click', closeModal);
         if (contactForm) contactForm.addEventListener('submit', handleMailtoSubmission);
 
@@ -1044,18 +904,6 @@ ${message}
             searchModal.addEventListener('click', (e) => {
                 if (e.target.id === 'search-modal') {
                     closeSearchModal();
-                }
-            });
-        }
-
-        // Image Modal functionaliteit
-        if (closeImageModalButton) closeImageModalButton.addEventListener('click', closeImageModal);
-
-        const imageZoomModal = document.getElementById('image-zoom-modal');
-        if (imageZoomModal) {
-            imageZoomModal.addEventListener('click', (e) => {
-                if (e.target.id === 'image-zoom-modal') {
-                    closeImageModal();
                 }
             });
         }
@@ -1081,18 +929,16 @@ ${message}
             });
         }
 
-        // Mobiele menu functionaliteit (onveranderd)
+        // Mobiele menu functionaliteit
         if (menuToggle && mobileMenu) {
             menuToggle.addEventListener('click', () => {
                 const isOpen = mobileMenu.classList.contains('translate-x-full');
 
                 if (isOpen) {
-                    // Open het menu
                     mobileMenu.classList.remove('translate-x-full');
                     mobileMenu.classList.add('translate-x-0');
                     document.body.style.overflow = 'hidden';
                 } else {
-                    // Sluit het menu
                     mobileMenu.classList.add('translate-x-full');
                     mobileMenu.classList.remove('translate-x-0');
                     document.body.style.overflow = '';

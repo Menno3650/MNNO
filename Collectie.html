@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MNNO.be - Home</title>
+    <title>MNNO.be - Collectie</title>
     <!-- Tailwind CSS laden voor snelle en responsieve styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -29,22 +29,20 @@
             animation: spin 3s linear infinite;
         }
 
-        /* Manifesto Container - Vult het scherm voor de initiële manifesto-weergave */
+        /* Manifesto Container (niet gebruikt op deze pagina, maar stijl behouden) */
         .manifesto-container {
-            min-height: calc(100vh - 80px); /* Volledige hoogte min de header */
+            min-height: calc(100vh - 80px);
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Links uitgelijnd, met padding */
+            justify-content: flex-start;
             padding-top: 5rem;
             padding-bottom: 5rem;
-
         }
 
         /* Collage Item Styling */
         .collage-item {
-            /* Zorgt voor een lichte rand op donkere achtergrond */
             border: 1px solid #333;
-            overflow: hidden; /* Houdt de afbeelding binnen de grenzen */
+            overflow: hidden;
             position: relative;
             cursor: pointer;
         }
@@ -57,18 +55,17 @@
         .collage-item:hover img {
             transform: scale(1.05);
         }
-        /* Definieer specifieke aspect ratio's of grid spans voor de collage */
         .item-tall {
-            aspect-ratio: 4 / 5; /* Verticaal (klein) */
+            aspect-ratio: 4 / 5;
         }
         .item-wide {
-            aspect-ratio: 3 / 2; /* Horizontaal (groot) */
-            grid-column: span 2; /* Strekt over 2 kolommen op mobiel/tablet */
+            aspect-ratio: 3 / 2;
+            grid-column: span 2;
         }
 
         /* Fixed Footer Styling */
         footer {
-            border-top: 1px solid #333; /* Lichte scheidingslijn op donkere achtergrond */
+            border-top: 1px solid #333;
         }
 
         /* Mobile Menu Transitions */
@@ -95,10 +92,10 @@
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
 
-        /* NIEUW: Scrolling strip animation */
+        /* Scrolling strip animation (niet gebruikt op deze pagina, maar stijl behouden) */
         @keyframes scroll-left {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Schuift de kloon over de breedte */
+            100% { transform: translateX(-50%); }
         }
         .scrolling-strip {
             overflow: hidden;
@@ -106,54 +103,47 @@
             width: 100%;
             border-top: 1px solid #333;
             border-bottom: 1px solid #333;
-            padding: 1.5rem 0; /* Verhoogde padding voor meer dikte */
+            padding: 1.5rem 0;
         }
         .scrolling-text {
             display: inline-block;
             animation: scroll-left 15s linear infinite;
-            font-size: 1.8rem; /* Standaard font size voor mobiel */
-            font-weight: 900; /* Extra bold/Black */
-            letter-spacing: 0.2em; /* Spatie tussen letters */
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: #fff; /* Puur wit */
-        }
-        @media (min-width: 640px) { /* sm breakpoint */
-            .scrolling-text {
-                font-size: 2.5rem; /* Groter op tablet */
-            }
-        }
-        @media (min-width: 1024px) { /* lg breakpoint */
-            .scrolling-text {
-                font-size: 3rem; /* Grootst op desktop */
-            }
-        }
-        /* Hover Info Block Styling */
-        .hover-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.85);
             color: #fff;
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-out;
         }
-        .collage-item:hover .hover-info {
-            transform: translateY(0);
+        @media (min-width: 640px) {
+            .scrolling-text {
+                font-size: 2.5rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .scrolling-text {
+                font-size: 3rem;
+            }
         }
 
         /* HEADER STYLES: SMART SCROLL */
         header {
-            transition: transform 0.3s ease-in-out; /* Maak de slide animatie vloeiend */
+            transition: transform 0.3s ease-in-out;
         }
 
         /* Highlight Class for search results */
         .search-highlight {
-            background-color: #fff; /* Witte achtergrond */
-            color: #000; /* Zwarte tekst */
+            background-color: #fff;
+            color: #000;
             border-radius: 4px;
             padding: 0 4px;
+        }
+
+        /* Collection Card Image Hover */
+        .collection-item img {
+            transition: transform 0.4s ease-out;
+        }
+        .collection-item:hover img {
+            transform: scale(1.05);
         }
 
         /* NIEUW: Custom scroll-reveal effect for collection cards */
@@ -166,6 +156,7 @@
             opacity: 1;
             transform: translateY(0);
         }
+
     </style>
 </head>
 <body class="bg-black text-white">
@@ -174,21 +165,22 @@
 <header id="main-header" class="sticky top-0 bg-black z-50 border-b border-gray-800">
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center relative">
 
-        <!-- Links (Links uitgelijnd) - Aangepaste kleuren voor actieve/inactieve links EN DIKKER LETTERTYPE -->
+        <!-- Links (Links uitgelijnd - Eerste sectie) -->
         <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wider uppercase">
-            <!-- HOME (ACTIEF) -->
-            <a href="index.html" class="text-gray-200 transition duration-150 language-transition" data-translate-key="nav_home">HOME</a>
-            <!-- COLLECTIE (NAAR NIEUWE PAGINA) -->
-            <a href="collectie.html" class="text-gray-500 hover:text-gray-200 transition duration-150 language-transition" data-translate-key="nav_collectie">COLLECTIE</a>
+            <!-- HOME (INACTIEF) -->
+            <a href="index.html" class="text-gray-500 hover:text-gray-200 transition duration-150 language-transition" data-translate-key="nav_home">HOME</a>
+            <!-- COLLECTIE (ACTIEF) -->
+            <a href="collectie.html" class="text-gray-200 transition duration-150 language-transition" data-translate-key="nav_collectie">COLLECTIE</a>
+            <!-- OVER ONS (INACTIEF) -->
             <a href="overons.html" class="text-gray-500 hover:text-gray-200 transition duration-150 language-transition" data-translate-key="nav_over_ons">OVER ONS</a>
         </div>
 
-        <!-- Logo (Centraal gepositioneerd, nu een draaiende afbeelding) -->
+        <!-- Logo (Centraal gepositioneerd) -->
         <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <img src="logoMNNO.gif" alt="MNNO Logo (Draaiend)" class=" w- h-8"/>
         </div>
 
-        <!-- Iconen (Rechts uitgelijnd) -->
+        <!-- Iconen & Mobiel Menu (Rechts uitgelijnd - Tweede sectie) -->
         <div class="flex items-center space-x-6 text-sm">
             <!-- Taalwisselaar -->
             <button id="language-toggle" aria-label="Toggle language" class="hidden sm:block text-gray-500 font-semibold hover:text-gray-200 transition duration-150 language-transition">
@@ -200,7 +192,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
 
-            <!-- Mobiel Menu Knop (Alleen zichtbaar op Mobiel) -->
+            <!-- Mobiel Menu Knop (Alleen zichtbaar op Mobiel/Tablet) -->
             <button id="menu-toggle" aria-label="Menu" class="md:hidden p-2 text-gray-500 hover:text-gray-200 transition duration-150">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path><path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -212,119 +204,88 @@
 <div id="mobile-menu" class="mobile-menu-container fixed inset-0 bg-black transform translate-x-full md:hidden z-40">
     <div class="pt-24 px-8 flex flex-col space-y-4 text-lg font-semibold uppercase">
         <!-- Mobile Links -->
-        <a href="index.html" class="text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_home">HOME</a>
-        <a href="collectie.html" class="text-gray-500 hover:text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_collectie">COLLECTIE</a>
+        <a href="index.html" class="text-gray-500 hover:text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_home">HOME</a>
+        <a href="collectie.html" class="text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_collectie">COLLECTIE</a>
         <a href="overons.html" class="text-gray-500 hover:text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_over_ons">OVER ONS</a>
     </div>
 </div>
 
 <main>
-    <!-- Manifesto Sectie (Vervangt de Hero Sectie) -->
-    <section class="manifesto-container w-full overflow-hidden">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-left">
+    <!-- Collectie Hoofd Sectie -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <div class="scroll-reveal" style="transition-delay: 0s;">
+                <h1 class="text-5xl font-extrabold uppercase tracking-widest mb-4 language-transition" data-translate-key="catalog_title">De Volledige Collectie</h1>
+            </div>
+            <div class="scroll-reveal" style="transition-delay: 0.1s;">
+                <p class="text-gray-400 max-w-2xl mx-auto language-transition" data-translate-key="catalog_description">Een overzicht van alle unieke stukken die momenteel beschikbaar zijn, evenals eerdere ontwerpen die als inspiratie dienen. Elk item vertelt een verhaal.</p>
+            </div>
+        </header>
 
-            <p class="text-base sm:text-lg mb-8 leading-relaxed language-transition scroll-reveal" data-translate-key="manifesto_p1" style="transition-delay: 0.1s;">
-                Fashion isn't about decoration — it's about declaration. Each piece you wear is a fragment of who you are becoming. We build our own silhouettes, we sculpt our fears into strength, and we wear them proudly. In the words of Rick Owens: Fashion is about dressing according to what's fashionable. Style is more about being yourself!
-            </p>
+        <!-- Collection Grid (2 kolommen op medium, 3 kolommen op large) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12" id="collection-grid">
 
-            <p class="text-base sm:text-lg mb-8 leading-relaxed language-transition scroll-reveal" data-translate-key="manifesto_p2" style="transition-delay: 0.3s;">
-                This is not just clothing — it's a conversation with the world. Build your uniform of freedom, your quiet rebellion, your art in motion.
-            </p>
-
-            <p class="text-base sm:text-lg mb-2 leading-relaxed font-bold language-transition scroll-reveal" data-translate-key="manifesto_unique" style="transition-delay: 0.5s;">
-                -Every item is unique, 1 of 1-
-            </p>
-
-            <!-- Knop om de contact modal te openen -->
-            <button id="open-contact-modal" class="text-base sm:text-lg text-gray-500 hover:text-gray-200 transition duration-150 underline language-transition scroll-reveal" data-translate-key="manifesto_send_msg" onclick="openModal()" style="transition-delay: 0.7s;">
-                Send message for request!
-            </button>
-        </div>
-    </section>
-
-    <!-- Schuivende strip sectie met herhalende tekst (Groter, Witter, Duidelijker) -->
-    <section class="scrolling-strip bg-black">
-        <div class="scrolling-text" id="scrolling-text-content">
-            <!-- De tekst wordt door JavaScript ingesteld en herhaald -->
-        </div>
-    </section>
-
-    <!-- Fotocollage Sectie (Highlights) -->
-    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-800">
-
-        <div class="scroll-reveal" style="transition-delay: 0s;">
-            <h2 class="text-3xl font-bold text-center mb-16 uppercase tracking-wider language-transition" data-translate-key="section_highlights">Onze Hoogtepunten</h2>
-        </div>
-
-        <!-- Responsieve Collage Grid (2 kolommen op mobiel, 3 kolommen op desktop) -->
-        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
-
-            <!-- Item 1 (Verticaal) -->
-            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.1s;">
-                <img src="JacketJeans.jpg"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Eerste jeans jas" data-image-info-en="First jeans jacket">
-                <!-- Hover Overlay -->
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
+            <!-- Item Card 1: WAXED DENIM CARDHOLDER (Beschikbaar) -->
+            <div class="bg-black border border-gray-800 rounded-lg overflow-hidden shadow-2xl collection-item scroll-reveal" style="transition-delay: 0.2s;">
+                <div class="h-96 w-full overflow-hidden cursor-pointer" onclick="openImageModal(this.querySelector('img'))">
+                    <img src="Cardholder.jpg" alt="Waxed Denim Cardholder" class="w-full h-full object-cover transition duration-500 hover:scale-[1.02]"/>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs font-semibold uppercase tracking-wider mb-2 status-text text-green-400 language-transition" data-item-status-key="item1_status"></p>
+                    <h3 class="text-xl font-bold uppercase mb-3 item-name language-transition" data-item-name-key="item1_name"></h3>
+                    <p class="text-sm text-gray-400 item-desc language-transition" data-item-desc-key="item1_desc"></p>
+                    <button onclick="openModal()" class="mt-4 text-sm font-semibold underline text-gray-500 hover:text-white transition duration-150 language-transition" data-translate-key="manifesto_send_msg">
+                        Send message for request!
+                    </button>
                 </div>
             </div>
 
-            <!-- Item 2 (Verticaal) -->
-            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.2s;">
-                <img src="WaffleGreenSweat.JPG"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Trui met borduursel" data-image-info-en="Sweater with embroidery">
-                <!-- Hover Overlay -->
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
+            <!-- Item Card 2: DECONSTRUCTED JEANS (Niet Beschikbaar) -->
+            <div class="bg-black border border-gray-800 rounded-lg overflow-hidden shadow-2xl collection-item opacity-80 scroll-reveal" style="transition-delay: 0.3s;">
+                <div class="h-96 w-full overflow-hidden cursor-pointer" onclick="openImageModal(this.querySelector('img'))">
+                    <img src="BroekOpening.JPG" alt="Deconstructed Jeans" class="w-full h-full object-cover transition duration-500 hover:scale-[1.02]"/>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs font-semibold uppercase tracking-wider mb-2 status-text text-yellow-400 language-transition" data-item-status-key="item2_status"></p>
+                    <h3 class="text-xl font-bold uppercase mb-3 item-name language-transition" data-item-name-key="item2_name"></h3>
+                    <p class="text-sm text-gray-400 item-desc language-transition" data-item-desc-key="item2_desc"></p>
+                    <button onclick="openModal()" class="mt-4 text-sm font-semibold underline text-gray-500 hover:text-white transition duration-150 language-transition" data-translate-key="manifesto_send_msg">
+                        Send message for request!
+                    </button>
+                </div>
+            </div>
+            <!--
+                        /// Item Card 3: BLACK LEATHER HARNESS (Op Aanvraag)
+            <div class="bg-black border border-gray-800 rounded-lg overflow-hidden shadow-2xl collection-item scroll-reveal" style="transition-delay: 0.4s;">
+                <div class="h-96 w-full overflow-hidden cursor-pointer" onclick="openImageModal(this.querySelector('img'))">
+                    <img src="https://placehold.co/800x800/3a3a3a/cccccc?text=LEATHER+HARNESS" alt="Black Leather Harness" class="w-full h-full object-cover transition duration-500 hover:scale-[1.02]"/>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs font-semibold uppercase tracking-wider mb-2 status-text text-green-400 language-transition" data-item-status-key="item3_status"></p>
+                    <h3 class="text-xl font-bold uppercase mb-3 item-name language-transition" data-item-name-key="item3_name"></h3>
+                    <p class="text-sm text-gray-400 item-desc language-transition" data-item-desc-key="item3_desc"></p>
+                    <button onclick="openModal()" class="mt-4 text-sm font-semibold underline text-gray-500 hover:text-white transition duration-150 language-transition" data-translate-key="manifesto_send_msg">
+                        Send message for request!
+                    </button>
                 </div>
             </div>
 
-            <!-- Item 3 (Horizontaal - strekt over 2 kolommen op mobiel/tablet) -->
-            <div class="collage-item item-wide col-span-2 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.3s;">
-                <img src="BroekOpening.JPG"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Handgemaakte jeans met split achteraan" data-image-info-en="Handmade jeans with split at the back">
-                <!-- Hover Overlay -->
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
+            /// Item Card 4: BROWN OVERCOAT DRAPE (Inspiratie)
+            <div class="bg-black border border-gray-800 rounded-lg overflow-hidden shadow-2xl collection-item opacity-50 scroll-reveal" style="transition-delay: 0.5s;">
+                <div class="h-96 w-full overflow-hidden cursor-pointer" onclick="openImageModal(this.querySelector('img'))">
+                    <img src="https://placehold.co/800x800/4a4a4a/cccccc?text=OVERCOAT+DRAPE" alt="Brown Overcoat Drape" class="w-full h-full object-cover transition duration-500 hover:scale-[1.02]"/>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs font-semibold uppercase tracking-wider mb-2 status-text text-red-500 language-transition" data-item-status-key="item4_status"></p>
+                    <h3 class="text-xl font-bold uppercase mb-3 item-name language-transition" data-item-name-key="item4_name"></h3>
+                    <p class="text-sm text-gray-400 item-desc language-transition" data-item-desc-key="item4_desc"></p>
+                    <p class="mt-4 text-xs font-medium text-gray-500 language-transition" data-translate-key="status_sold">Inspiratievoorbeeld</p>
                 </div>
             </div>
 
-            <!-- Item 4 (Verticaal, op desktop vult deze de 3e kolom van de rij van Item 3) -->
-            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.4s;">
-                <img src="Cardholder.jpg"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Jeans kaarthouder" data-image-info-en="Jeans cardholder">
-                <!-- Hover Overlay -->
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
-                </div>
-            </div>
-
-            <!-- Item 5 (Horizontaal, strekt over 2 kolommen op mobiel/tablet)
-            <div class="collage-item item-wide col-span-2 relative overflow-hidden rounded-md cursor-pointer group shadow-xl scroll-reveal"
-                 onclick="openImageModal(this)" style="transition-delay: 0.5s;">
-                <img src="https://placehold.co/1200x800/555555/cccccc?text=Custom+Item+E+(Wide)"
-                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
-                     data-image-info-nl="Natuurlijke Materialen" data-image-info-en="Natural Materials">
-                /// Hover Overlay
-                <div class="hover-info">
-                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
-                </div>
-            </div>-->
-        </div>
-
-        <!-- Collectie Knop -->
-        <div class="text-center mt-16 scroll-reveal" style="transition-delay: 0.6s;">
-            <a href="collectie.html" class="inline-block px-10 py-3 border-2 border-white text-white text-sm font-semibold uppercase tracking-wider rounded-full hover:bg-white hover:text-black transition duration-300 language-transition" data-translate-key="collection_full_btn">
-                Bekijk de Volledige Collectie
-            </a>
+            /// Plaats meer kaarten hier indien gewenst (Item 5, 6, etc.)
+            //-->
         </div>
     </section>
 
@@ -388,7 +349,7 @@
         <br>
         <!-- Sub-Voettekst (Privacy/Terms met Popup) -->
         <div class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
-            <p class="language-transition">2025 MNNO. All rights reserved.</p>
+            <p class="language-transition" >2025 MNNO. All rights reserved.</p>
             <div class="mt-4 sm:mt-0 space-x-4">
                 <!-- Privacy Policy link opent modal -->
                 <button onclick="openInfoModal('privacy')" class="hover:text-white language-transition" data-translate-key="footer_privacy">Privacybeleid</button>
@@ -450,7 +411,7 @@
 
 <!-- NIEUW: Algemene Info Modal (voor Privacy & Terms) -->
 <div id="info-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[70] hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
-    <div class="bg-black border border-gray-700 p-6 sm:p-8 rounded-lg max-w-xl w-full transform transition-all duration-300 scale-95 opacity-0" id="info-modal-content">
+    <div class="bg-black border border-gray-700 p-6 sm:p-8 rounded-lg max-w-xl w-full transform transition-all duration-300 scale-95 opacity-0 overflow-y-auto max-h-[90vh]" id="info-modal-content">
         <div class="flex justify-between items-center pb-4 border-b border-gray-800">
             <h3 class="text-xl font-bold uppercase tracking-wider text-white" id="info-modal-title"></h3>
             <button id="close-info-modal" aria-label="Sluit" class="text-gray-500 hover:text-white transition duration-150">
@@ -506,9 +467,9 @@
             'item1_name': 'WAXED DENIM CARDHOLDER',
             'item1_status': 'Available',
             'item1_desc': 'Handcrafted from dark grey waxed denim with reinforced corners.',
-            'item2_name': 'DECONSTRUCTED JEANS',
-            'item2_status': 'Custom Made (Unavailable)',
-            'item2_desc': 'A unique upcycled design, hand-stitched from various denim types.',
+            'item2_name': 'Split Jeans',
+            'item2_status': 'Custom Made',
+            'item2_desc': 'A unique design, hand-stitched from various denim types and backgrounds.',
             'item3_name': 'BLACK LEATHER HARNESS',
             'item3_status': 'Available on Request',
             'item3_desc': 'Minimalist accessory made of high-quality black leather.',
@@ -580,9 +541,9 @@
             'item1_name': 'GEWAXT DENIM CARDHOLDER',
             'item1_status': 'Beschikbaar',
             'item1_desc': 'Handgemaakt van donkergrijs gewaxed denim met verstevigde hoeken.',
-            'item2_name': 'GEDEDECONSTRUEERDE JEANS',
-            'item2_status': 'Op Maat Gemaakt (Niet Beschikbaar)',
-            'item2_desc': 'Een uniek upcycled ontwerp, met de hand genaaid uit verschillende denimsoorten.',
+            'item2_name': 'SPLIT JEANS',
+            'item2_status': 'Op Maat Gemaakt',
+            'item2_desc': 'Een uniek ontwerp, met de hand genaaid uit verschillende denimsoorten en achtergronden.',
             'item3_name': 'ZWARTE LEREN HARNESS',
             'item3_status': 'Beschikbaar op Aanvraag',
             'item3_desc': 'Strak, minimalistisch accessoire van hoogwaardig zwart leer.',
@@ -625,18 +586,6 @@
             'search_found_msg': 'Eén resultaat gevonden. Scrollen naar locatie.',
             'search_not_found_msg': 'Geen resultaten gevonden op deze pagina.',
 
-            // NIEUWE OVER ONS TRANSLATIONS
-            'about_title': 'Visie en Vakmanschap',
-            'about_subtitle': 'Het Verhaal van MNNO',
-            'about_intro': 'Ik ben Menno Heussen, een 20-jarige ontwerper, maker en kracht achter MNNO. Dit merk is mijn uiting van non-conformiteit en tijdloos design, geboren uit een passie voor deconstructie en de schoonheid van natuurlijke materialen.',
-            'about_section1_title': 'De Filosofie: Deconstructie & Detail',
-            'about_section1_p1': 'MNNO is geworteld in de overtuiging dat ware stijl ligt in de details en het verhaal achter het materiaal. Ik vind inspiratie in het proces van het deconstrueren van bestaande kledingstukken en materialen om ze een nieuwe, onverwachte structuur te geven. Elke naad, elke snede, is intentioneel. Ik zie imperfecties niet als fouten, maar als karakter.',
-            'about_section1_p2': 'Mijn toewijding aan het creëren van "1 of 1" stuks betekent dat je iets werkelijk unieks bezit—een draagbaar sculptuur dat individualiteit weerspiegelt.',
-            'about_section2_title': 'Van Ambacht tot Business', // VERNIEUWD
-            'about_section2_p1': 'Wat begon als een pure passie voor het creëren van unieke stukken, groeit nu uit tot een ambitieuze onderneming. Elk handgemaakt item is een stap op weg naar een volwaardige, gespecialiseerde business. De focus blijft op de onberispelijke kwaliteit en het persoonlijke contact, maar de schaal van mijn creatieve impact groeit.', // VERNIEUWD
-            'about_section2_p2': 'De toekomst van MNNO ligt in het verbreden van dit ambacht, het integreren van op maat gemaakte collecties, en het vestigen van een merk dat synoniem is met authentieke, gedragen kunst. Dit is de reis naar een succesvolle, ethische fashion business.', // VERNIEUWD
-            'about_cta_request': 'Start Je Maatwerk Project',
-
             // Info Modal Content
             'info_privacy_title': 'Samenvatting Privacybeleid',
             'info_privacy_body': '<p>Deze website respecteert uw privacy. Wij verzamelen geen persoonlijke gegevens zonder uw uitdrukkelijke toestemming. Informatie verzonden via het contactformulier wordt uitsluitend gebruikt om uw aanvraag te beantwoorden en wordt niet op onze server opgeslagen.</p><p>We gebruiken standaard, niet-identificerende cookies (bijv. voor taalvoorkeur) om de sitefunctionaliteit te waarborgen. Wij delen of verkopen nooit persoonlijke informatie.</p>',
@@ -645,31 +594,55 @@
         }
     };
 
-    let currentLang = 'en'; // Starttaal is Engels, zoals gevraagd in het manifesto
+    let currentLang = 'en'; // Starttaal is Engels
     const FADE_DURATION = 200; // Milliseconden voor de fade-overgang
+
+    // Functie om de collectiekaarten bij te werken met de juiste vertalingen
+    function updateCollectionContent(lang) {
+        const t = translations[lang];
+        const items = [1, 2, 3, 4]; // De ID's van de kaarten die geüpdatet moeten worden
+
+        items.forEach(i => {
+            const nameElement = document.querySelector(`[data-item-name-key="item${i}_name"]`);
+            const statusElement = document.querySelector(`[data-item-status-key="item${i}_status"]`);
+            const descElement = document.querySelector(`[data-item-desc-key="item${i}_desc"]`);
+
+            if (nameElement) nameElement.textContent = t[`item${i}_name`] || '';
+            if (statusElement) statusElement.textContent = t[`item${i}_status`] || '';
+            if (descElement) descElement.textContent = t[`item${i}_desc`] || '';
+        });
+
+        // Update de hoofdbeschrijving
+        const catalogTitle = document.querySelector('[data-translate-key="catalog_title"]');
+        const catalogDesc = document.querySelector('[data-translate-key="catalog_description"]');
+
+        if (catalogTitle) catalogTitle.textContent = t['catalog_title'] || '';
+        if (catalogDesc) catalogDesc.textContent = t['catalog_description'] || '';
+
+        // Pas de status kleur aan op basis van de tekst (optioneel, voor een betere UX)
+        document.querySelectorAll('.status-text').forEach(el => {
+            const statusText = el.textContent.toLowerCase();
+            el.classList.remove('text-green-400', 'text-yellow-400', 'text-red-500');
+            if (statusText.includes('beschikbaar') || statusText.includes('available')) {
+                el.classList.add('text-green-400');
+            } else if (statusText.includes('op aanvraag') || statusText.includes('on request')) {
+                el.classList.add('text-yellow-400');
+            } else {
+                el.classList.add('text-red-500'); // Inspiration / Unavailable
+            }
+        });
+
+    }
+
 
     // Functie om de schuivende tekst in te stellen
     function updateScrollingText(lang) {
-        const scrollingContent = translations[lang]['scrolling_text_content'];
-        const repeatedContent = scrollingContent.repeat(10); // Herhaal 10 keer om de strip te vullen
-        const element = document.getElementById('scrolling-text-content'); // Controleer of de strip bestaat
-
-        if (element) {
-            element.textContent = repeatedContent;
-        }
+        // Deze functie is hier leeg omdat de scrolling strip niet op collectie.html staat, maar is nodig om errors te voorkomen indien de DOM later wordt gewijzigd
     }
 
-    // Functie om de hover info in de collage bij te werken
+    // Functie om de hover info in de collage bij te werken (niet gebruikt op deze pagina)
     function updateCollageHoverInfo(lang) {
-        document.querySelectorAll('.collage-item').forEach(item => {
-            const img = item.querySelector('img');
-            const infoElement = item.querySelector('.image-title');
-            if (img && infoElement) {
-                const key = `data-image-info-${lang}`;
-                const info = img.getAttribute(key);
-                infoElement.textContent = info || (lang === 'nl' ? 'Info Niet Beschikbaar' : 'Info Not Available');
-            }
-        });
+        // Placeholder
     }
 
 
@@ -706,9 +679,8 @@
                 toggleButton.textContent = `EUR / ${lang === 'en' ? 'NL' : 'EN'}`;
             }
 
-            // 5. Update de schuivende tekst en collage info
-            updateScrollingText(lang);
-            updateCollageHoverInfo(lang);
+            // 5. Update de collectie inhoud (NIEUW)
+            updateCollectionContent(lang);
 
             // 6. Update de HTML lang attribute
             document.documentElement.lang = lang;
@@ -719,7 +691,7 @@
         }, FADE_DURATION);
     }
 
-    // --- Contact Modal Functies ---
+    // --- Contact Modal Functies (IDENTIEK AAN INDEX.HTML) ---
     function openModal() {
         const modal = document.getElementById('contact-modal');
         const content = document.getElementById('modal-content');
@@ -788,18 +760,17 @@ ${message}
         }, 400);
     }
 
-    // --- Image Zoom Modal Functies ---
-    function openImageModal(element) {
+    // --- Image Zoom Modal Functies (IDENTIEK AAN INDEX.HTML) ---
+    function openImageModal(imgElement) {
         const modal = document.getElementById('image-zoom-modal');
         const img = modal.querySelector('#modal-image');
         const info = modal.querySelector('#modal-image-info');
-        // Let op: Hier gebruik je element.querySelector('img') in index.html, maar in de collage items is 'element' zelf de div. We moeten de img eruit halen.
-        const sourceImg = element.tagName === 'IMG' ? element : element.querySelector('img');
 
-        const infoText = sourceImg.getAttribute(`data-image-info-${currentLang}`);
+        // Geen data-image-info op collectie items, dus we gebruiken de naam
+        const titleElement = imgElement.closest('.collection-item').querySelector('.item-name');
 
-        img.src = sourceImg.src;
-        info.textContent = infoText;
+        img.src = imgElement.src;
+        info.textContent = titleElement ? titleElement.textContent : 'Item Image';
 
         modal.classList.remove('hidden');
         modal.style.opacity = 1;
@@ -815,7 +786,7 @@ ${message}
         }, 300);
     }
 
-    // --- Info Modal (Privacy/Terms) Functies ---
+    // --- Info Modal (Privacy/Terms) Functies (IDENTIEK AAN INDEX.HTML) ---
     function openInfoModal(type) {
         const modal = document.getElementById('info-modal');
         const content = document.getElementById('info-modal-content');
@@ -848,7 +819,7 @@ ${message}
         }, 300);
     }
 
-    // --- Zoekmodal Functies ---
+    // --- Zoekmodal Functies (IDENTIEK AAN INDEX.HTML) ---
     function openSearchModal() {
         const modal = document.getElementById('search-modal');
         const content = document.getElementById('search-modal-content');
@@ -856,14 +827,13 @@ ${message}
         content.classList.add('opacity-0', 'scale-95');
         document.body.style.overflow = 'hidden';
 
-        // Verberg eventuele vorige berichten
         document.getElementById('search-message').classList.add('hidden');
 
         setTimeout(() => {
             content.classList.remove('opacity-0', 'scale-95');
             content.classList.add('opacity-100', 'scale-100');
         }, 10);
-        document.getElementById('search-input').focus(); // Focus op het zoekveld
+        document.getElementById('search-input').focus();
     }
 
     function closeSearchModal() {
@@ -884,11 +854,9 @@ ${message}
         const highlights = container.querySelectorAll('.search-highlight');
         highlights.forEach(span => {
             const parent = span.parentNode;
-            // Verplaats alle kinderen van de span voor de span zelf
             while (span.firstChild) {
                 parent.insertBefore(span.firstChild, span);
             }
-            // Verwijder de span
             parent.removeChild(span);
         });
     }
@@ -914,29 +882,23 @@ ${message}
         let found = false;
         let firstFoundElement = null;
 
-        // Zoek alleen in elementen met zichtbare tekst in de main sectie
-        const searchableElements = Array.from(mainContent.querySelectorAll('p, h2, a, button, span'));
+        const searchableElements = Array.from(mainContent.querySelectorAll('p, h1, h3, a, button, span'));
 
         for (const el of searchableElements) {
-            // Sla elementen over die de navigatie en functionaliteit breken
-            if (el.classList.contains('logo-spin') || el.classList.contains('scrolling-text')) {
+            if (el.classList.contains('logo-spin')) {
                 continue;
             }
 
             let originalHTML = el.innerHTML;
 
-            // Voer de vervanging uit en check of er iets is gevonden
             let highlightedHTML = originalHTML.replace(regex, (match, p1, offset, string) => {
                 found = true;
                 if (!firstFoundElement) {
-                    // Markeer het eerste gevonden element om naar te scrollen
                     firstFoundElement = el;
                 }
-                // Gebruik de match (p1) om de originele casing te behouden
                 return `<span class="bg-white text-black rounded px-1 search-highlight">${match}</span>`;
             });
 
-            // Alleen DOM wijzigen als de inhoud daadwerkelijk is veranderd
             if (highlightedHTML !== originalHTML) {
                 el.innerHTML = highlightedHTML;
             }
@@ -946,12 +908,8 @@ ${message}
         if (found && firstFoundElement) {
             closeSearchModal();
 
-            // Scroll naar het element
             requestAnimationFrame(() => {
-                // Gebruik scrollIntoView op het parent element voor betere centrering
                 firstFoundElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                // Toon melding in de console (voor dev feedback)
                 console.log(`[ZOEKRESULTAAT] Gevonden: ${query}. Scrolling naar element.`);
             });
         } else {
@@ -962,10 +920,10 @@ ${message}
     }
 
 
-    // --- SMART SCROLL FUNCTIE ---
+    // --- SMART SCROLL FUNCTIE (IDENTIEK AAN INDEX.HTML) ---
     let lastScrollY = window.scrollY;
     const header = document.getElementById('main-header');
-    const headerHeight = 80; // Vaste hoogte van de header
+    const headerHeight = 80;
 
     function handleScroll() {
         const currentScrollY = window.scrollY;
@@ -973,23 +931,19 @@ ${message}
         // Roep de scroll reveal check aan bij elke scroll
         checkScrollReveal();
 
-        // Zorg dat de header pas begint te verbergen nadat we 80px gescrolld zijn
         if (currentScrollY > headerHeight) {
             if (currentScrollY > lastScrollY) {
-                // Naar beneden scrollen: Verberg header
                 header.style.transform = `translateY(-${headerHeight}px)`;
             } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
-                // Naar boven scrollen met een drempel van 5px: Toon header
                 header.style.transform = 'translateY(0)';
             }
         } else {
-            // Zorg ervoor dat de header zichtbaar is bovenaan de pagina
             header.style.transform = 'translateY(0)';
         }
         lastScrollY = currentScrollY;
     }
 
-    // --- NIEUWE SCROLL REVEAL FUNCTIES VOOR INDEX.HTML ---
+    // --- NIEUWE SCROLL REVEAL FUNCTIES VOOR COLLECTIE ---
     function checkScrollReveal() {
         const elements = document.querySelectorAll('.scroll-reveal');
         elements.forEach(el => {
@@ -1001,13 +955,11 @@ ${message}
         });
     }
 
-
     // Initialisatie
     document.addEventListener('DOMContentLoaded', () => {
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const languageToggle = document.getElementById('language-toggle');
-        const openModalButton = document.getElementById('open-contact-modal');
         const closeModalButton = document.getElementById('close-modal');
         const contactForm = document.getElementById('contact-form');
         const closeImageModalButton = document.getElementById('close-image-modal');
@@ -1033,7 +985,6 @@ ${message}
         }
 
         // Contact Modal functionaliteit
-        if (openModalButton) openModalButton.addEventListener('click', openModal);
         if (closeModalButton) closeModalButton.addEventListener('click', closeModal);
         if (contactForm) contactForm.addEventListener('submit', handleMailtoSubmission);
 
@@ -1048,7 +999,11 @@ ${message}
             });
         }
 
-        // Image Modal functionaliteit
+        // Image Modal functionaliteit (klik op item card image om de modal te openen)
+        document.querySelectorAll('.collection-item img').forEach(img => {
+            img.addEventListener('click', () => openImageModal(img));
+        });
+
         if (closeImageModalButton) closeImageModalButton.addEventListener('click', closeImageModal);
 
         const imageZoomModal = document.getElementById('image-zoom-modal');
