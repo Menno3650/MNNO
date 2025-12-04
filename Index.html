@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNNO.be</title>
+    <!-- Tailwind CSS laden voor snelle en responsieve styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Aangepaste configuratie voor een nauwkeurige donkere look */
+        :root {
+            --color-primary: #f4f4f4; /* Lichte tekst op donkere achtergrond */
+            --color-secondary: #000000; /* Zwarte achtergrond */
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+        }
+
+        /* CSS voor het draaiende logo */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .logo-spin {
+            animation: spin 3s linear infinite;
+        }
+
+        /* Manifesto Container - Vult het scherm voor de initiële manifesto-weergave */
+        .manifesto-container {
+            min-height: calc(100vh - 80px); /* Volledige hoogte min de header */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Links uitgelijnd, met padding */
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+
+        }
+
+        /* Collage Item Styling */
+        .collage-item {
+            /* Zorgt voor een lichte rand op donkere achtergrond */
+            border: 1px solid #333;
+            overflow: hidden; /* Houdt de afbeelding binnen de grenzen */
+            position: relative;
+            cursor: pointer;
+        }
+        .collage-item img {
+            transition: transform 0.4s ease-out;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .collage-item:hover img {
+            transform: scale(1.05);
+        }
+        /* Definieer specifieke aspect ratio's of grid spans voor de collage */
+        .item-tall {
+            aspect-ratio: 4 / 5; /* Verticaal (klein) */
+        }
+        .item-wide {
+            aspect-ratio: 3 / 2; /* Horizontaal (groot) */
+            grid-column: span 2; /* Strekt over 2 kolommen op mobiel/tablet */
+        }
+
+        /* Fixed Footer Styling */
+        footer {
+            border-top: 1px solid #333; /* Lichte scheidingslijn op donkere achtergrond */
+        }
+
+        /* Mobile Menu Transitions */
+        .mobile-menu-container {
+            transition: transform 0.3s ease-out;
+            z-index: 40;
+        }
+
+        /* Overrides voor Tailwind in Dark Mode */
+        .bg-black-900 {
+            background-color: #1a1a1a;
+        }
+
+        /* NIEUW: CSS voor een vloeiende overgang bij taalwissel */
+        .language-transition {
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        /* Modal Transitions */
+        #contact-modal, #info-modal, #search-modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #modal-content, #info-modal-content, #search-modal-content {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        /* NIEUW: Scrolling strip animation */
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Schuift de kloon over de breedte */
+        }
+        .scrolling-strip {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            padding: 1.5rem 0; /* Verhoogde padding voor meer dikte */
+        }
+        .scrolling-text {
+            display: inline-block;
+            animation: scroll-left 15s linear infinite;
+            font-size: 1.8rem; /* Standaard font size voor mobiel */
+            font-weight: 900; /* Extra bold/Black */
+            letter-spacing: 0.2em; /* Spatie tussen letters */
+            text-transform: uppercase;
+            color: #fff; /* Puur wit */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .scrolling-text {
+                font-size: 2.5rem; /* Groter op tablet */
+            }
+        }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .scrolling-text {
+                font-size: 3rem; /* Grootst op desktop */
+            }
+        }
+        /* Hover Info Block Styling */
+        .hover-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+        }
+        .collage-item:hover .hover-info {
+            transform: translateY(0);
+        }
+
+        /* HEADER STYLES: SMART SCROLL */
+        header {
+            transition: transform 0.3s ease-in-out; /* Maak de slide animatie vloeiend */
+        }
+
+        /* Highlight Class for search results */
+        .search-highlight {
+            background-color: #fff; /* Witte achtergrond */
+            color: #000; /* Zwarte tekst */
+            border-radius: 4px;
+            padding: 0 4px;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+<!-- Navigatiebalk - Vaste zwarte header -->
+<header id="main-header" class="sticky top-0 bg-black z-50 border-b border-gray-800">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center relative">
+
+        <!-- Links (Links uitgelijnd) - Aangepaste kleuren voor actieve/inactieve links EN DIKKER LETTERTYPE -->
+        <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wider uppercase">
+            <!-- HOME (ACTIEF) -->
+            <a href="#" class="text-gray-200 transition duration-150 language-transition" data-translate-key="nav_home">HOME</a>
+            <!-- COLLECTIE (NAAR NIEUWE PAGINA) -->
+            <a href="collectie.html" class="text-gray-500 hover:text-gray-200 transition duration-150 language-transition" data-translate-key="nav_collectie">COLLECTIE</a>
+            <a href="#" class="text-gray-500 hover:text-gray-200 transition duration-150 language-transition" data-translate-key="nav_over_ons">OVER ONS</a>
+        </div>
+
+        <!-- Logo (Centraal gepositioneerd, nu een draaiende afbeelding) -->
+        <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <img src="logoMNNO.gif" alt="MNNO Logo (Draaiend)" class=" w- h-8"/>
+        </div>
+
+        <!-- Iconen (Rechts uitgelijnd) -->
+        <div class="flex items-center space-x-6 text-sm">
+            <!-- Taalwisselaar -->
+            <button id="language-toggle" aria-label="Toggle language" class="hidden sm:block text-gray-500 font-semibold hover:text-gray-200 transition duration-150 language-transition">
+                EUR / NL
+            </button>
+
+            <!-- Zoeken (Opent nu de zoekmodal) -->
+            <button aria-label="Zoeken" class="p-2 text-gray-500 hover:text-gray-200 transition duration-150" onclick="openSearchModal()">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </button>
+
+            <!-- Mobiel Menu Knop (Alleen zichtbaar op Mobiel) -->
+            <button id="menu-toggle" aria-label="Menu" class="md:hidden p-2 text-gray-500 hover:text-gray-200 transition duration-150">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path><path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<!-- Mobiel Menu Overlay (Zwart) -->
+<div id="mobile-menu" class="mobile-menu-container fixed inset-0 bg-black transform translate-x-full md:hidden z-40">
+    <div class="pt-24 px-8 flex flex-col space-y-4 text-lg font-semibold uppercase">
+        <!-- Mobile Links -->
+        <a href="#" class="text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_home">HOME</a>
+        <a href="collectie.html" class="text-gray-500 hover:text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_collectie">COLLECTIE</a>
+        <a href="#" class="text-gray-500 hover:text-gray-200 border-b border-gray-800 pb-4 language-transition" data-translate-key="nav_over_ons">OVER ONS</a>
+    </div>
+</div>
+
+<main>
+    <!-- Manifesto Sectie (Vervangt de Hero Sectie) -->
+    <section class="manifesto-container w-full overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-left">
+
+            <p class="text-base sm:text-lg mb-8 leading-relaxed language-transition" data-translate-key="manifesto_p1">
+                Fashion isn't about decoration — it's about declaration. Each piece you wear is a fragment of who you are becoming. We build our own silhouettes, we sculpt our fears into strength, and we wear them proudly. In the words of Rick Owens: Fashion is about dressing according to what's fashionable. Style is more about being yourself!
+            </p>
+
+            <p class="text-base sm:text-lg mb-8 leading-relaxed language-transition" data-translate-key="manifesto_p2">
+                This is not just clothing — it's a conversation with the world. Build your uniform of freedom, your quiet rebellion, your art in motion.
+            </p>
+
+            <p class="text-base sm:text-lg mb-2 leading-relaxed font-bold language-transition" data-translate-key="manifesto_unique">
+                -Every item is unique, 1 of 1-
+            </p>
+
+            <!-- Knop om de contact modal te openen -->
+            <button id="open-contact-modal" class="text-base sm:text-lg text-gray-500 hover:text-gray-200 transition duration-150 underline language-transition" data-translate-key="manifesto_send_msg" onclick="openModal()">
+                Send message for request!
+            </button>
+        </div>
+    </section>
+
+    <!-- Schuivende strip sectie met herhalende tekst (Groter, Witter, Duidelijker) -->
+    <section class="scrolling-strip bg-black">
+        <div class="scrolling-text" id="scrolling-text-content">
+            <!-- De tekst wordt door JavaScript ingesteld en herhaald -->
+        </div>
+    </section>
+
+    <!-- Fotocollage Sectie (Highlights) -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-800">
+        <h2 class="text-3xl font-bold text-center mb-16 uppercase tracking-wider language-transition" data-translate-key="section_highlights">Onze Hoogtepunten</h2>
+
+        <!-- Responsieve Collage Grid (2 kolommen op mobiel, 3 kolommen op desktop) -->
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+
+            <!-- Item 1 (Verticaal) -->
+            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl"
+                 onclick="openImageModal(this)">
+                <img src="https://placehold.co/600x800/111111/cccccc?text=Custom+Item+A"
+                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
+                     data-image-info-nl="Minimalistische Leren Tas" data-image-info-en="Minimalist Leather Bag">
+                <!-- Hover Overlay -->
+                <div class="hover-info">
+                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
+                </div>
+            </div>
+
+            <!-- Item 2 (Verticaal) -->
+            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl"
+                 onclick="openImageModal(this)">
+                <img src="https://placehold.co/600x800/222222/cccccc?text=Custom+Item+B"
+                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
+                     data-image-info-nl="Gebreide Trui, Oversized Fit" data-image-info-en="Knit Sweater, Oversized Fit">
+                <!-- Hover Overlay -->
+                <div class="hover-info">
+                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
+                </div>
+            </div>
+
+            <!-- Item 3 (Horizontaal - strekt over 2 kolommen op mobiel/tablet) -->
+            <div class="collage-item item-wide col-span-2 relative overflow-hidden rounded-md cursor-pointer group shadow-xl"
+                 onclick="openImageModal(this)">
+                <img src="https://placehold.co/1200x800/333333/cccccc?text=Custom+Item+C+(Wide)"
+                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
+                     data-image-info-nl="Monochrome Styling" data-image-info-en="Monochrome Styling">
+                <!-- Hover Overlay -->
+                <div class="hover-info">
+                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
+                </div>
+            </div>
+
+            <!-- Item 4 (Verticaal, op desktop vult deze de 3e kolom van de rij van Item 3) -->
+            <div class="collage-item item-tall col-span-1 relative overflow-hidden rounded-md cursor-pointer group shadow-xl"
+                 onclick="openImageModal(this)">
+                <img src="https://placehold.co/600x800/444444/cccccc?text=Custom+Item+D"
+                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
+                     data-image-info-nl="Hoge Laarzen, Zwart Leer" data-image-info-en="High Boots, Black Leather">
+                <!-- Hover Overlay -->
+                <div class="hover-info">
+                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
+                </div>
+            </div>
+
+            <!-- Item 5 (Horizontaal, strekt over 2 kolommen op mobiel/tablet) -->
+            <div class="collage-item item-wide col-span-2 relative overflow-hidden rounded-md cursor-pointer group shadow-xl"
+                 onclick="openImageModal(this)">
+                <img src="https://placehold.co/1200x800/555555/cccccc?text=Custom+Item+E+(Wide)"
+                     class="w-full h-full object-cover absolute inset-0 transition duration-500 ease-in-out"
+                     data-image-info-nl="Natuurlijke Materialen" data-image-info-en="Natural Materials">
+                <!-- Hover Overlay -->
+                <div class="hover-info">
+                    <p class="text-xs sm:text-sm font-semibold uppercase image-title"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collectie Knop -->
+        <div class="text-center mt-16">
+            <a href="collectie.html" class="inline-block px-10 py-3 border-2 border-white text-white text-sm font-semibold uppercase tracking-wider rounded-full hover:bg-white hover:text-black transition duration-300 language-transition" data-translate-key="collection_full_btn">
+                Bekijk de Volledige Collectie
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!-- Voettekst (Donker) -->
+<footer class="bg-black py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-sm">
+
+        <!-- Hoofd Voettekst Raster - 6 Kolommen op Desktop (voor centrering van 4 secties) -->
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-8 border-b border-gray-800 pb-8 mb-8">
+
+            <!-- Kolom 1 (Leegte links) -->
+            <div class="hidden md:block col-span-1"></div>
+
+            <!-- Kolom 2: Fashion -->
+            <div class="col-span-1 text-center">
+                <h4 class="font-bold uppercase mb-4 text-white language-transition" data-translate-key="footer_fashion">Fashion</h4>
+                <ul class="space-y-2">
+                    <li><span class="text-gray-400 hover:text-white language-transition lowercase" data-translate-key="footer_believe">believe in yourself</span></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 3: More -->
+            <div class="col-span-1 text-center">
+                <h4 class="font-bold uppercase mb-4 text-white language-transition" data-translate-key="footer_more">More</h4>
+                <ul class="space-y-2">
+                    <!-- Collection toegevoegd -->
+                    <li><a href="collectie.html" class="text-gray-400 hover:text-white language-transition lowercase" data-translate-key="nav_collectie">Collectie</a></li>
+                    <!-- About us (kleine letters) -->
+                    <li><a href="#" class="text-gray-400 hover:text-white language-transition lowercase" data-translate-key="nav_over_ons_small">About us</a></li>
+
+                </ul>
+            </div>
+
+            <!-- Kolom 4: Volg ons -->
+            <div class="col-span-1 text-center">
+                <h4 class="font-bold uppercase mb-4 text-white language-transition" data-translate-key="footer_follow">Volg ons</h4>
+                <ul class="space-y-2">
+                    <li><a href="https://instagram.com/menno_heussen" target="_blank" class="text-gray-400 hover:text-white transition duration-150">Instagram</a></li>
+                    <li><a href="https://facebook.com/Mennoheussen" target="_blank" class="text-gray-400 hover:text-white transition duration-150">Facebook</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 5: Contact (Nu met modal EN mailto) -->
+            <div class="col-span-1 text-center">
+                <h4 class="font-bold uppercase mb-4 text-white language-transition" data-translate-key="footer_contact">Contact</h4>
+                <ul class="space-y-2">
+                    <!-- Contact link (opent modal) -->
+                    <li><button onclick="openModal()" class="text-gray-400 hover:text-white language-transition" data-translate-key="nav_contact">Contact</button></li>
+                    <!-- NIEUW: E-mail link -->
+                    <li><a href="mailto:mennoheussen@icloud.com" class="text-gray-400 hover:text-white language-transition" data-translate-key="footer_email">E-mail</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolom 6 (Leegte rechts) -->
+            <div class="hidden md:block col-span-1"></div>
+
+        </div>
+        <div><img src="logoMNNO.gif" alt="MNNO Logo (Draaiend)"/></div>
+        <br>
+        <!-- Sub-Voettekst (Privacy/Terms met Popup) -->
+        <div class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+            <p class="language-transition" data-translate-key="footer_copyright">2025 MNNO. All rights reserved.</p>
+            <div class="mt-4 sm:mt-0 space-x-4">
+                <!-- Privacy Policy link opent modal -->
+                <button onclick="openInfoModal('privacy')" class="hover:text-white language-transition" data-translate-key="footer_privacy">Privacybeleid</button>
+                <!-- Algemene Voorwaarden link opent modal -->
+                <button onclick="openInfoModal('terms')" class="hover:text-white language-transition" data-translate-key="footer_terms">Algemene Voorwaarden</button>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Contact Modal/Popup -->
+<div id="contact-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[60] hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
+    <div class="bg-black border border-gray-700 p-6 sm:p-8 rounded-lg max-w-lg w-full transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+        <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+            <h3 class="text-xl font-bold uppercase tracking-wider text-white language-transition" data-translate-key="modal_title">Stuur een Aanvraag</h3>
+            <button id="close-modal" aria-label="Sluit" class="text-gray-500 hover:text-white transition duration-150">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <form id="contact-form" class="mt-6 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input type="text" id="first-name" data-translate-placeholder-key="modal_fn_placeholder" placeholder="Voornaam" required
+                       class="w-full px-4 py-3 border border-gray-700 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-white">
+                <input type="text" id="last-name" data-translate-placeholder-key="modal_ln_placeholder" placeholder="Achternaam" required
+                       class="w-full px-4 py-3 border border-gray-700 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-white">
+            </div>
+
+            <input type="email" id="email-address" data-translate-placeholder-key="modal_email_placeholder" placeholder="E-mailadres" required
+                   class="w-full px-4 py-3 border border-gray-700 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-white">
+
+            <input type="text" id="address" data-translate-placeholder-key="modal_address_placeholder" placeholder="Adres (Optioneel)"
+                   class="w-full px-4 py-3 border border-gray-700 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-white">
+
+            <textarea id="message" rows="5" data-translate-placeholder-key="modal_msg_placeholder" placeholder="Uw bericht/Aanvraag" required
+                      class="w-full px-4 py-3 border border-gray-700 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-white"></textarea>
+
+            <button type="submit" id="submit-button"
+                    class="w-full py-3 bg-white text-black text-sm font-semibold uppercase rounded-md hover:bg-gray-200 transition duration-300 language-transition" data-translate-key="modal_send_btn">
+                Verstuur Bericht
+            </button>
+        </form>
+        <p id="mail-message" class="mt-4 text-sm text-center text-green-400 hidden language-transition" data-translate-key="modal_success_msg">
+            Uw e-mailclient is geopend met de aanvraag.
+        </p>
+    </div>
+</div>
+
+<!-- Image Zoom Modal -->
+<div id="image-zoom-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[70] hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
+    <div class="relative max-w-4xl w-full max-h-full">
+        <button id="close-image-modal" aria-label="Sluit afbeelding" class="absolute top-4 right-4 text-white hover:text-gray-400 transition duration-150 z-10">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <img id="modal-image" src="" alt="Groot weergegeven item" class="w-full h-auto object-contain rounded-md">
+        <p id="modal-image-info" class="text-sm font-semibold uppercase text-center mt-4 text-gray-200 language-transition"></p>
+    </div>
+</div>
+
+<!-- NIEUW: Algemene Info Modal (voor Privacy & Terms) -->
+<div id="info-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[70] hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
+    <div class="bg-black border border-gray-700 p-6 sm:p-8 rounded-lg max-w-xl w-full transform transition-all duration-300 scale-95 opacity-0 overflow-y-auto max-h-[90vh]" id="info-modal-content">
+        <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+            <h3 class="text-xl font-bold uppercase tracking-wider text-white" id="info-modal-title"></h3>
+            <button id="close-info-modal" aria-label="Sluit" class="text-gray-500 hover:text-white transition duration-150">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="mt-4 text-gray-400 space-y-4" id="info-modal-body">
+            <!-- Content wordt dynamisch geladen -->
+        </div>
+    </div>
+</div>
+
+<!-- NIEUW: Zoekmodal -->
+<div id="search-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[80] hidden flex items-center justify-center p-4" aria-modal="true" role="dialog">
+    <div class="bg-black border border-gray-700 p-6 sm:p-8 rounded-lg max-w-lg w-full transform transition-all duration-300 scale-95 opacity-0" id="search-modal-content">
+        <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+            <h3 class="text-xl font-bold uppercase tracking-wider text-white language-transition" data-translate-key="search_title">Zoek op MNNO</h3>
+            <button id="close-search-modal" aria-label="Sluit Zoeken" class="text-gray-500 hover:text-white transition duration-150">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <form id="search-form" class="mt-6 flex flex-col gap-2" onsubmit="event.preventDefault(); handleSearchSubmission();">
+            <input type="text" id="search-input" data-translate-placeholder-key="search_placeholder" placeholder="Voer uw zoekterm in" required
+                   class="flex-grow px-4 py-3 border border-gray-700 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-1 focus:ring-white">
+
+            <button type="submit"
+                    class="px-6 py-3 bg-white text-black text-sm font-semibold uppercase rounded-md hover:bg-gray-200 transition duration-300 language-transition" data-translate-key="search_btn">
+                Zoeken
+            </button>
+            <p id="search-message" class="mt-4 text-sm text-center text-gray-400 hidden language-transition">
+                <!-- Dynamic search results message -->
+            </p>
+        </form>
+    </div>
+</div>
+
+
+<!-- JavaScript voor Mobiel Menu Toggle, Taalwisselaar & Modals -->
+<script>
+    const API_KEY = ""; // If you want to use models other than gemini-2.5-flash-preview-09-2025 or imagen-4.0-generate-001, provide an API key here. Otherwise, leave this as-is.
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
+
+    const translations = {
+        'en': {
+            'nav_home': 'HOME',
+            'nav_collectie': 'COLLECTION',
+            'nav_over_ons': 'ABOUT US',
+            'nav_contact': 'CONTACT',
+            'nav_how': 'HOW',
+            'catalog_title': 'The Full Collection', // NIEUW
+            'catalog_description': 'An overview of all unique pieces currently available, as well as previous designs that serve as inspiration. Every item tells a story.', // NIEUW
+            'item1_name': 'WAXED DENIM CARDHOLDER', // NIEUW
+            'item1_status': 'Available', // NIEUW
+            'item1_desc': 'Handcrafted from dark grey waxed denim with reinforced corners.', // NIEUW
+            'item2_name': 'DECONSTRUCTED JEANS', // NIEUW
+            'item2_status': 'Custom Made (Unavailable)', // NIEUW
+            'item2_desc': 'A unique upcycled design, hand-stitched from various denim types.', // NIEUW
+            'item3_name': 'BLACK LEATHER HARNESS', // NIEUW
+            'item3_status': 'Available on Request', // NIEUW
+            'item3_desc': 'Minimalist accessory made of high-quality black leather.', // NIEUW
+            'item4_name': 'BROWN OVERCOAT DRAPE', // NIEUW
+            'item4_status': 'Inspiration', // NIEUW
+            'item4_desc': 'A heavy wool overcoat design with flowing lines and texture.', // NIEUW
+            'status_sold': 'SOLD OUT', // NIEUW
+            'manifesto_p1': "Fashion isn't about decoration — it's about declaration. Each piece you wear is a fragment of who you are becoming. We build our own silhouettes, we sculpt our fears into strength, and we wear them proudly. In the words of Rick Owens: Fashion is about dressing according to what's fashionable. Style is more about being yourself!",
+            'manifesto_p2': "This is not just clothing — it's a conversation with the world. Build your uniform of freedom, your quiet rebellion, your art in motion.",
+            'manifesto_unique': "-Every item is unique, 1 of 1-",
+            'manifesto_send_msg': 'Send message for request!',
+            'section_highlights': 'Our Highlights',
+            'collection_full_btn': 'View Full Collection',
+            'scrolling_text_content': 'COLLECTION • NEW DROP • COLLECTION • ESSENTIALS • ',
+            // Voettekst Vertaalbare Keys
+            'footer_fashion': 'Fashion',
+            'footer_believe': 'believe in yourself',
+            'footer_more': 'More',
+            'nav_over_ons_small': 'about us',
+            'footer_follow': 'Follow us',
+            'footer_contact': 'Contact',
+            'footer_email': 'Email',
+            'footer_copyright': '&copy; 2025 MNNO. All rights reserved.',
+            'footer_privacy': 'Privacy Policy',
+            'footer_terms': 'Terms and Conditions',
+            // Modal Vertaalbare Keys
+            'modal_title': 'Send Request',
+            'modal_fn_placeholder': 'First Name',
+            'modal_ln_placeholder': 'Last Name',
+            'modal_email_placeholder': 'Email Address',
+            'modal_address_placeholder': 'Address (Optional)',
+            'modal_msg_placeholder': 'Your Message/Request',
+            'modal_send_btn': 'Send Message',
+            'modal_success_msg': 'Your email client has opened with the request.',
+            // Search Modal Keys
+            'search_title': 'Search MNNO',
+            'search_placeholder': 'Enter your search query',
+            'search_btn': 'Search',
+            'search_empty_msg': 'Please enter a search query.',
+            'search_found_msg': 'Found one occurrence. Scrolling to location.',
+            'search_not_found_msg': 'No results found on this page.',
+
+            // Info Modal Content
+            'info_privacy_title': 'Privacy Policy Summary',
+            'info_privacy_body': '<p>This website respects your privacy. We do not collect any personal data without your explicit consent. Information submitted through the contact form is used solely to reply to your request and is not stored on our server.</p><p>We use standard, non-identifying cookies (e.g., for language preference) to ensure site functionality. We never share or sell personal information.</p>',
+            'info_terms_title': 'Terms and Conditions Summary',
+            'info_terms_body': '<p>By using this website, you agree to these terms. All content (text, images, design, etc.) is the exclusive property of MNNO. It may not be reproduced without written permission.</p><p>Since this is a non-commercial portfolio site (no active selling), all price indications and product descriptions are for demonstration and informational purposes only and are subject to change.</p>',
+        },
+        'nl': {
+            'nav_home': 'HOME',
+            'nav_collectie': 'COLLECTIE',
+            'nav_over_ons': 'OVER ONS',
+            'nav_contact': 'CONTACT',
+            'nav_how': 'HOE',
+            'catalog_title': 'De Volledige Collectie', // NIEUW
+            'catalog_description': 'Een overzicht van alle unieke stukken die momenteel beschikbaar zijn, evenals eerdere ontwerpen die als inspiratie dienen. Elk item vertelt een verhaal.', // NIEUW
+            'item1_name': 'GEWAXT DENIM CARDHOLDER', // NIEUW
+            'item1_status': 'Beschikbaar', // NIEUW
+            'item1_desc': 'Handgemaakt van donkergrijs gewaxed denim met verstevigde hoeken.', // NIEUW
+            'item2_name': 'GEDEDECONSTRUEERDE JEANS', // NIEUW
+            'item2_status': 'Op Maat Gemaakt (Niet Beschikbaar)', // NIEUW
+            'item2_desc': 'Een uniek upcycled ontwerp, met de hand genaaid uit verschillende denimsoorten.', // NIEUW
+            'item3_name': 'ZWARTE LEREN HARNESS', // NIEUW
+            'item3_status': 'Beschikbaar op Aanvraag', // NIEUW
+            'item3_desc': 'Strak, minimalistisch accessoire van hoogwaardig zwart leer.', // NIEUW
+            'item4_name': 'BRUINE OVERJAS DRAPE', // NIEUW
+            'item4_status': 'Inspiratie', // NIEUW
+            'item4_desc': 'Een zwaar wollen overjasontwerp met vloeiende lijnen en textuur.', // NIEUW
+            'status_sold': 'UITVERKOCHT', // NIEUW
+            'manifesto_p1': 'Mode gaat niet over decoratie, het gaat over een verklaring. Elk stuk dat je draagt, is een fragment van wie je aan het worden bent. We bouwen onze eigen silhouetten, we boetseren onze angsten tot kracht, en we dragen ze met trots. In de woorden van Rick Owens: Mode gaat over kleden volgens wat modieus is. Stijl gaat meer over jezelf zijn!',
+            'manifesto_p2': 'Dit is niet zomaar kleding - het is een gesprek met de wereld. Bouw je uniform van vrijheid, je stille rebellie, je kunst in beweging.',
+            'manifesto_unique': '-Elk item is uniek, 1 van 1-',
+            'manifesto_send_msg': 'Stuur bericht voor aanvraag!',
+            'section_highlights': 'Onze Hoogtepunten', /* Aangepaste Titel */
+            'collection_full_btn': 'Bekijk de Volledige Collectie',
+            'scrolling_text_content': 'COLLECTIE • NIEUWE ITEMS • COLLECTIE • ESSENTIALS • ', /* Text for scrolling strip */
+            // Voettekst Vertaalbare Keys
+            'footer_fashion': 'Mode',
+            'footer_believe': 'geloof in jezelf',
+            'footer_more': 'Meer',
+            'nav_over_ons_small': 'over ons', // Aangepast naar kleine letters
+            'footer_follow': 'Volg ons',
+            'footer_contact': 'Contact',
+            'footer_email': 'E-mail', // NIEUW
+            'footer_copyright': '&copy; 2025 MNNO. Alle rechten voorbehouden.',
+            'footer_privacy': 'Privacybeleid',
+            'footer_terms': 'Algemene Voorwaarden',
+            // Modal Vertaalbare Keys
+            'modal_title': 'Stuur een Aanvraag',
+            'modal_fn_placeholder': 'Voornaam',
+            'modal_ln_placeholder': 'Achternaam',
+            'modal_email_placeholder': 'E-mailadres',
+            'modal_address_placeholder': 'Adres (Optioneel)',
+            'modal_msg_placeholder': 'Uw bericht/Aanvraag',
+            'modal_send_btn': 'Verstuur Bericht',
+            'modal_success_msg': 'Uw e-mailclient is geopend met de aanvraag.',
+            // Search Modal Keys
+            'search_title': 'Zoek op MNNO',
+            'search_placeholder': 'Voer uw zoekterm in',
+            'search_btn': 'Zoeken',
+            'search_empty_msg': 'Voer een zoekterm in.',
+            'search_found_msg': 'Eén resultaat gevonden. Scrollen naar locatie.',
+            'search_not_found_msg': 'Geen resultaten gevonden op deze pagina.',
+
+            // Info Modal Content
+            'info_privacy_title': 'Samenvatting Privacybeleid',
+            'info_privacy_body': '<p>Deze website respecteert uw privacy. Wij verzamelen geen persoonlijke gegevens zonder uw uitdrukkelijke toestemming. Informatie verzonden via het contactformulier wordt uitsluitend gebruikt om uw aanvraag te beantwoorden en wordt niet op onze server opgeslagen.</p><p>We gebruiken standaard, niet-identificerende cookies (bijv. voor taalvoorkeur) om de sitefunctionaliteit te waarborgen. Wij delen of verkopen nooit persoonlijke informatie.</p>',
+            'info_terms_title': 'Samenvatting Algemene Voorwaarden',
+            'info_terms_body': '<p>Door deze website te gebruiken, gaat u akkoord met deze voorwaarden. Alle inhoud (tekst, afbeeldingen, ontwerp, etc.) is het exclusieve eigendom van MNNO. Het mag niet worden gereproduceerd zonder schriftelijke toestemming.</p><p>Aangezien dit een niet-commerciële portfoliosite is (geen actieve verkoop), zijn alle prijsaanduidingen en productbeschrijvingen uitsluitend bedoeld ter demonstratie en informatie en kunnen deze worden gewijzigd.</p>',
+        }
+    };
+
+    let currentLang = 'en'; // Starttaal is Engels, zoals gevraagd in het manifesto
+    const FADE_DURATION = 200; // Milliseconden voor de fade-overgang
+
+    // Functie om de schuivende tekst in te stellen
+    function updateScrollingText(lang) {
+        const scrollingContent = translations[lang]['scrolling_text_content'];
+        const repeatedContent = scrollingContent.repeat(10); // Herhaal 10 keer om de strip te vullen
+        const element = document.getElementById('scrolling-text-content'); // Controleer of de strip bestaat
+
+        if (element) {
+            element.textContent = repeatedContent;
+        }
+    }
+
+    // Functie om de hover info in de collage bij te werken
+    function updateCollageHoverInfo(lang) {
+        document.querySelectorAll('.collage-item').forEach(item => {
+            const img = item.querySelector('img');
+            const infoElement = item.querySelector('.image-title');
+            if (img && infoElement) {
+                const key = `data-image-info-${lang}`;
+                const info = img.getAttribute(key);
+                infoElement.textContent = info || (lang === 'nl' ? 'Info Niet Beschikbaar' : 'Info Not Available');
+            }
+        });
+    }
+
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        const t = translations[lang];
+
+        const translatableElements = document.querySelectorAll('[data-translate-key]');
+
+        // 1. Fade out (zet opacity naar 0)
+        translatableElements.forEach(el => el.style.opacity = 0);
+
+        // Wacht op de fade-out (200ms), verander dan de inhoud en fade in
+        setTimeout(() => {
+            // 2. Vertaal alle data-translate-key elementen
+            translatableElements.forEach(el => {
+                const key = el.getAttribute('data-translate-key');
+                if (t[key]) {
+                    el.textContent = t[key];
+                }
+            });
+
+            // 3. Vertaal placeholder teksten (zonder fade)
+            document.querySelectorAll('[data-translate-placeholder-key]').forEach(el => {
+                const key = el.getAttribute('data-translate-placeholder-key');
+                if (t[key]) {
+                    el.placeholder = t[key];
+                }
+            });
+
+            // 4. Update de taalwisselaar knop
+            const toggleButton = document.getElementById('language-toggle');
+            if (toggleButton) {
+                toggleButton.textContent = `EUR / ${lang === 'en' ? 'NL' : 'EN'}`;
+            }
+
+            // 5. Update de schuivende tekst en collage info
+            updateScrollingText(lang);
+            updateCollageHoverInfo(lang);
+
+            // 6. Update de HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // 7. Fade in (zet opacity terug naar 1)
+            translatableElements.forEach(el => el.style.opacity = 1);
+
+        }, FADE_DURATION);
+    }
+
+    // --- Contact Modal Functies ---
+    function openModal() {
+        const modal = document.getElementById('contact-modal');
+        const content = document.getElementById('modal-content');
+        modal.classList.remove('hidden');
+        content.classList.add('opacity-0', 'scale-95');
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            content.classList.remove('opacity-0', 'scale-95');
+            content.classList.add('opacity-100', 'scale-100');
+        }, 10);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('contact-modal');
+        const content = document.getElementById('modal-content');
+        content.classList.remove('opacity-100', 'scale-100');
+        content.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+        // Reset het formulier bij sluiten
+        document.getElementById('mail-message').classList.add('hidden');
+    }
+
+    // Mailto afhandeling (gebruikt in de modal submit)
+    function handleMailtoSubmission(event) {
+        event.preventDefault();
+
+        const firstName = document.getElementById('first-name').value.trim();
+        const lastName = document.getElementById('last-name').value.trim();
+        const emailAddress = document.getElementById('email-address').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        const receiver = 'mennoheussen@icloud.com';
+        const subject = currentLang === 'en' ? 'Contact Request from MNNO Website' : 'Contact Aanvraag vanaf MNNO Website';
+
+        const bodyContent = `
+--- Contact Details ---
+Name: ${firstName} ${lastName}
+Email: ${emailAddress}
+Address: ${address || (currentLang === 'en' ? 'Not Provided' : 'Niet Opgegeven')}
+--- Message ---
+${message}
+`;
+
+        const mailtoLink = `mailto:${receiver}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyContent)}`;
+
+        window.location.href = mailtoLink;
+
+        document.getElementById('mail-message').classList.remove('hidden');
+        document.getElementById('contact-form').reset();
+
+        // Sluit de modal na een korte vertraging, zodat de gebruiker het succesbericht ziet
+        setTimeout(() => {
+            const modal = document.getElementById('contact-modal');
+            const content = document.getElementById('modal-content');
+            content.classList.remove('opacity-100', 'scale-100');
+            content.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }, 400);
+    }
+
+    // --- Image Zoom Modal Functies ---
+    function openImageModal(element) {
+        const modal = document.getElementById('image-zoom-modal');
+        const img = modal.querySelector('#modal-image');
+        const info = modal.querySelector('#modal-image-info');
+        const sourceImg = element.querySelector('img');
+
+        const infoText = sourceImg.getAttribute(`data-image-info-${currentLang}`);
+
+        img.src = sourceImg.src;
+        info.textContent = infoText;
+
+        modal.classList.remove('hidden');
+        modal.style.opacity = 1;
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+        const modal = document.getElementById('image-zoom-modal');
+        modal.style.opacity = 0;
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    // --- Info Modal (Privacy/Terms) Functies ---
+    function openInfoModal(type) {
+        const modal = document.getElementById('info-modal');
+        const content = document.getElementById('info-modal-content');
+        const titleElement = document.getElementById('info-modal-title');
+        const bodyElement = document.getElementById('info-modal-body');
+
+        const keyPrefix = `info_${type}_`;
+
+        titleElement.textContent = translations[currentLang][`${keyPrefix}title`];
+        bodyElement.innerHTML = translations[currentLang][`${keyPrefix}body`];
+
+        modal.classList.remove('hidden');
+        content.classList.add('opacity-0', 'scale-95');
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            content.classList.remove('opacity-0', 'scale-95');
+            content.classList.add('opacity-100', 'scale-100');
+        }, 10);
+    }
+
+    function closeInfoModal() {
+        const modal = document.getElementById('info-modal');
+        const content = document.getElementById('info-modal-content');
+        content.classList.remove('opacity-100', 'scale-100');
+        content.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    // --- Zoekmodal Functies ---
+    function openSearchModal() {
+        const modal = document.getElementById('search-modal');
+        const content = document.getElementById('search-modal-content');
+        modal.classList.remove('hidden');
+        content.classList.add('opacity-0', 'scale-95');
+        document.body.style.overflow = 'hidden';
+
+        // Verberg eventuele vorige berichten
+        document.getElementById('search-message').classList.add('hidden');
+
+        setTimeout(() => {
+            content.classList.remove('opacity-0', 'scale-95');
+            content.classList.add('opacity-100', 'scale-100');
+        }, 10);
+        document.getElementById('search-input').focus(); // Focus op het zoekveld
+    }
+
+    function closeSearchModal() {
+        const modal = document.getElementById('search-modal');
+        const content = document.getElementById('search-modal-content');
+        content.classList.remove('opacity-100', 'scale-100');
+        content.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+        document.getElementById('search-form').reset();
+        document.getElementById('search-message').classList.add('hidden');
+    }
+
+    // Verwijdert alle highlights op de pagina
+    function clearHighlights(container) {
+        const highlights = container.querySelectorAll('.search-highlight');
+        highlights.forEach(span => {
+            const parent = span.parentNode;
+            // Verplaats alle kinderen van de span voor de span zelf
+            while (span.firstChild) {
+                parent.insertBefore(span.firstChild, span);
+            }
+            // Verwijder de span
+            parent.removeChild(span);
+        });
+    }
+
+    // Zoekfunctionaliteit
+    function handleSearchSubmission() {
+        const query = document.getElementById('search-input').value.trim();
+        const mainContent = document.querySelector('main');
+        const searchMessageElement = document.getElementById('search-message');
+
+        clearHighlights(mainContent);
+        searchMessageElement.classList.add('hidden');
+
+        if (!query) {
+            searchMessageElement.textContent = translations[currentLang]['search_empty_msg'];
+            searchMessageElement.classList.remove('hidden');
+            return;
+        }
+
+        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedQuery})`, 'gi');
+
+        let found = false;
+        let firstFoundElement = null;
+
+        // Zoek alleen in elementen met zichtbare tekst in de main sectie
+        const searchableElements = Array.from(mainContent.querySelectorAll('p, h2, a, button, span'));
+
+        for (const el of searchableElements) {
+            // Sla elementen over die de navigatie en functionaliteit breken
+            if (el.classList.contains('logo-spin') || el.classList.contains('scrolling-text')) {
+                continue;
+            }
+
+            let originalHTML = el.innerHTML;
+
+            // Voer de vervanging uit en check of er iets is gevonden
+            let highlightedHTML = originalHTML.replace(regex, (match, p1, offset, string) => {
+                found = true;
+                if (!firstFoundElement) {
+                    // Markeer het eerste gevonden element om naar te scrollen
+                    firstFoundElement = el;
+                }
+                // Gebruik de match (p1) om de originele casing te behouden
+                return `<span class="bg-white text-black rounded px-1 search-highlight">${match}</span>`;
+            });
+
+            // Alleen DOM wijzigen als de inhoud daadwerkelijk is veranderd
+            if (highlightedHTML !== originalHTML) {
+                el.innerHTML = highlightedHTML;
+            }
+        }
+
+
+        if (found && firstFoundElement) {
+            closeSearchModal();
+
+            // Scroll naar het element
+            requestAnimationFrame(() => {
+                // Gebruik scrollIntoView op het parent element voor betere centrering
+                firstFoundElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Toon melding in de console (voor dev feedback)
+                console.log(`[ZOEKRESULTAAT] Gevonden: ${query}. Scrolling naar element.`);
+            });
+        } else {
+            searchMessageElement.textContent = translations[currentLang]['search_not_found_msg'];
+            searchMessageElement.classList.remove('hidden');
+            console.log(`[ZOEKRESULTAAT] Geen resultaten gevonden voor: ${query}`);
+        }
+    }
+
+
+    // --- SMART SCROLL FUNCTIE ---
+    let lastScrollY = window.scrollY;
+    const header = document.getElementById('main-header');
+    const headerHeight = 80; // Vaste hoogte van de header
+
+    function handleScroll() {
+        const currentScrollY = window.scrollY;
+
+        // Zorg dat de header pas begint te verbergen nadat we 80px gescrolld zijn
+        if (currentScrollY > headerHeight) {
+            if (currentScrollY > lastScrollY) {
+                // Naar beneden scrollen: Verberg header
+                header.style.transform = `translateY(-${headerHeight}px)`;
+            } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
+                // Naar boven scrollen met een drempel van 5px: Toon header
+                header.style.transform = 'translateY(0)';
+            }
+        } else {
+            // Zorg ervoor dat de header zichtbaar is bovenaan de pagina
+            header.style.transform = 'translateY(0)';
+        }
+        lastScrollY = currentScrollY;
+    }
+
+    // Initialisatie
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const languageToggle = document.getElementById('language-toggle');
+        const openModalButton = document.getElementById('open-contact-modal');
+        const closeModalButton = document.getElementById('close-modal');
+        const contactForm = document.getElementById('contact-form');
+        const closeImageModalButton = document.getElementById('close-image-modal');
+        const closeInfoModalButton = document.getElementById('close-info-modal');
+        const closeSearchModalButton = document.getElementById('close-search-modal');
+
+
+        // Smart Scroll Event Listener is nu actief
+        window.addEventListener('scroll', handleScroll);
+
+
+        // Standaardtaal instellen
+        setLanguage(currentLang);
+
+        // Toggle functionaliteit
+        if (languageToggle) {
+            languageToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'nl' : 'en';
+                setLanguage(newLang);
+            });
+        }
+
+        // Contact Modal functionaliteit
+        if (openModalButton) openModalButton.addEventListener('click', openModal);
+        if (closeModalButton) closeModalButton.addEventListener('click', closeModal);
+        if (contactForm) contactForm.addEventListener('submit', handleMailtoSubmission);
+
+        // Search Modal functionaliteit
+        if (closeSearchModalButton) closeSearchModalButton.addEventListener('click', closeSearchModal);
+        const searchModal = document.getElementById('search-modal');
+        if (searchModal) {
+            searchModal.addEventListener('click', (e) => {
+                if (e.target.id === 'search-modal') {
+                    closeSearchModal();
+                }
+            });
+        }
+
+        // Image Modal functionaliteit
+        if (closeImageModalButton) closeImageModalButton.addEventListener('click', closeImageModal);
+
+        const imageZoomModal = document.getElementById('image-zoom-modal');
+        if (imageZoomModal) {
+            imageZoomModal.addEventListener('click', (e) => {
+                if (e.target.id === 'image-zoom-modal') {
+                    closeImageModal();
+                }
+            });
+        }
+
+        // Info Modal functionaliteit
+        if (closeInfoModalButton) closeInfoModalButton.addEventListener('click', closeInfoModal);
+        const infoModal = document.getElementById('info-modal');
+        if (infoModal) {
+            infoModal.addEventListener('click', (e) => {
+                if (e.target.id === 'info-modal') {
+                    closeInfoModal();
+                }
+            });
+        }
+
+        // Sluit contact modal bij klikken buiten het content gebied
+        const contactModal = document.getElementById('contact-modal');
+        if (contactModal) {
+            contactModal.addEventListener('click', (e) => {
+                if (e.target.id === 'contact-modal') {
+                    closeModal();
+                }
+            });
+        }
+
+        // Mobiele menu functionaliteit (onveranderd)
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.contains('translate-x-full');
+
+                if (isOpen) {
+                    // Open het menu
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileMenu.classList.add('translate-x-0');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    // Sluit het menu
+                    mobileMenu.classList.add('translate-x-full');
+                    mobileMenu.classList.remove('translate-x-0');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Sluit het menu als een link wordt geklikt
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                    mobileMenu.classList.remove('translate-x-0');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    });
+</script>
+</body>
+</html>
